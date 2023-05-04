@@ -11,7 +11,7 @@ int main( int argc, char* args[] ){
     SDL_Window* window = NULL;
     //123
 
-
+    //123123
     //basdfsafas
     //The surface contained by the window
     SDL_Surface* screenSurface = NULL;
