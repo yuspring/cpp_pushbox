@@ -9,7 +9,7 @@ const int SCREEN_HEIGHT = 480;
 int main( int argc, char* args[] ){
     //The window we'll be rendering to
     SDL_Window* window = NULL;
-    
+    //123
 
 
     //basdfsafas
