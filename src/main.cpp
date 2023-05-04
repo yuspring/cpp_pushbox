@@ -12,7 +12,7 @@ int main( int argc, char* args[] ){
     
 
 
-    
+    //basdfsafas
     //The surface contained by the window
     SDL_Surface* screenSurface = NULL;
 
