@@ -22,16 +22,12 @@ endif
 
 SDL2_OPTIONS :=
 ifeq ($(OS_SYSTEM), WINDOWS)
-	SDL2_OPTIONS = -lmingw32 -lSDL2 -lSDL2_image -lSDL2_ttf
+	SDL2_OPTIONS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
 else
 	SDL2_OPTIONS = -lSDL2 -lSDL2_image -lSDL2_ttf
 endif
 
-all : bin/game
+all : game
 
-clean :
-	rm -rf bin/
-
-bin/game : ./src/main.cpp
-	mkdir bin
+game : ./src/main.cpp
 	g++ $^ -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) 
