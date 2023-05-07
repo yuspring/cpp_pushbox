@@ -1,16 +1,33 @@
-all : ./src/main.cpp
-CMD :=
+OS_SYSTEM :=
 ifeq ($(OS),Windows_NT)
-	CMD += -Ithird_party/include -Lthird_party/lib ./src/main.cpp -lmingw32
+	OS_SYSTEM += WINDOWS
 else
 	UNAME_M := $(shell uname -m)
 	ifeq ($(UNAME_M), x86_64)
-		CMD += ./src/main.cpp
+		CMD += MAC64
 	endif
 	ifeq ($(UNAME_M), arm64)
-		CMD += -I/opt/homebrew/include -L/opt/homebrew/lib ./src/main.cpp
+		CMD += MACARM
 	endif
 endif
 
-all : ./src/main.cpp
-	g++ $(CMD) -lSDL2 -lSDL2_image -lSDL2_ttf -o game
+SDL2_LIB := 
+ifeq ($(OS_SYSTEM),WINDOWS)
+	SDL2_LIB += -Ithird_party/include -Lthird_party/lib
+else
+	ifeq ($(OS_SYSTEM), MACARM)
+		SDL2_LIB += -I/opt/homebrew/include -L/opt/homebrew/lib
+	endif
+endif
+
+SDL2_OPTIONS :=
+ifeq ($(OS_SYSTEM), WINDOWS)
+	SDL2_OPTIONS += -lmingw32 -lSDL2 -lSDL2_image -lSDL2_ttf
+else
+	SDL2_OPTIONS += -lSDL2 -lSDL2_image -lSDL2_ttf
+endif
+
+all : game
+
+game : ./src/main.cpp
+	g++ $^ -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) 
