@@ -4,10 +4,10 @@ ifeq ($(OS),Windows_NT)
 else
 	UNAME_M := $(shell uname -m)
 	ifeq ($(UNAME_M), x86_64)
-		CMD += MAC64
+		OS_SYSTEM += MAC64
 	endif
 	ifeq ($(UNAME_M), arm64)
-		CMD += MACARM
+		OS_SYSTEM += MACARM
 	endif
 endif
 
