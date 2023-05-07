@@ -27,7 +27,11 @@ else
 	SDL2_OPTIONS = -lSDL2 -lSDL2_image -lSDL2_ttf
 endif
 
-all : game
+all : bin/game
 
-game : ./src/main.cpp
+clean :
+	rm -rf bin/
+
+bin/game : ./src/main.cpp
+	mkdir bin
 	g++ $^ -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) 
