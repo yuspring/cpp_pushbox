@@ -2,17 +2,16 @@
 #include <cstdio>
 #include <iostream>
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+#define SCREEN_NAME "SDL Tutorial"
+#define SCREEN_WIDTH 640;
+#define SCREEN_HEIGHT 480;
 
 int main( int argc, char* args[] ){
 
     SDL_Window* window = NULL;
 
     SDL_Surface* screenSurface = NULL;
-
     SDL_Surface* imageSurface = NULL;
-
     SDL_Surface* imageUp = NULL;
     SDL_Surface* imageDown = NULL;
     SDL_Surface* imageRight = NULL;
@@ -20,24 +19,18 @@ int main( int argc, char* args[] ){
     SDL_Surface* currentImage = NULL;
 
     
-
-    SDL_Init( SDL_INIT_VIDEO );
+    //Init SDL
+    SDL_Init(SDL_INIT_VIDEO);
     
     //Create window
-    window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+    window = SDL_CreateWindow(SCREEN_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
     //Get window surface
-    screenSurface = SDL_GetWindowSurface( window );
+    screenSurface = SDL_GetWindowSurface(window);
 
     //Fill the surface white
-    SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0xFF, 0xFF, 0xFF ) );
-            
-    //Update the surface
-    SDL_UpdateWindowSurface( window );
-
-    //Hack to get window to stay up
-    //SDL_Event e; bool quit = false; while( quit == false ){ while( SDL_PollEvent( &e ) ){ if( e.type == SDL_QUIT ) quit = true; } }
-
+    SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF ));
+    
     imageUp = SDL_LoadBMP("Key_Up.bmp");
     imageDown = SDL_LoadBMP("Key_Down.bmp");
     imageRight = SDL_LoadBMP("Key_Right.bmp");
@@ -87,7 +80,7 @@ int main( int argc, char* args[] ){
     SDL_FreeSurface(imageDown);
     SDL_FreeSurface(imageRight);
     SDL_FreeSurface(imageLeft);
-    SDL_FreeSurface(currentImage);
+    
     imageSurface = nullptr;
     imageUp = nullptr;
     imageDown = nullptr;
@@ -96,7 +89,7 @@ int main( int argc, char* args[] ){
     currentImage = nullptr;
 
     //Destroy window
-    SDL_DestroyWindow( window );
+    SDL_DestroyWindow(window);
 
     window = nullptr;
     screenSurface = nullptr;
