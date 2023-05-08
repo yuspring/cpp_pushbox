@@ -13,6 +13,12 @@ int main( int argc, char* args[] ){
 
     SDL_Surface* imageSurface = NULL;
 
+    SDL_Surface* imageUp = NULL;
+    SDL_Surface* imageDown = NULL;
+    SDL_Surface* imageRight = NULL;
+    SDL_Surface* imageLeft = NULL;
+    SDL_Surface* currentImage = NULL;
+
     
 
     SDL_Init( SDL_INIT_VIDEO );
@@ -32,6 +38,12 @@ int main( int argc, char* args[] ){
     //Hack to get window to stay up
     //SDL_Event e; bool quit = false; while( quit == false ){ while( SDL_PollEvent( &e ) ){ if( e.type == SDL_QUIT ) quit = true; } }
 
+    imageUp = SDL_LoadBMP("Key_Up.bmp");
+    imageDown = SDL_LoadBMP("Key_Down.bmp");
+    imageRight = SDL_LoadBMP("Key_Right.bmp");
+    imageLeft = SDL_LoadBMP("Key_Left.bmp");
+    currentImage = imageDown;
+
     bool isRunning = true;
     SDL_Event ev;
                 
@@ -40,23 +52,48 @@ int main( int argc, char* args[] ){
             if(ev.type == SDL_QUIT){
                 isRunning = false;          
             }
-            
-            imageSurface = SDL_LoadBMP("test.bmp");
+
+            /*imageSurface = SDL_LoadBMP("test.bmp");
             if(imageSurface == NULL){
                 std::cout << "Image loading Error:" << SDL_GetError() << std::endl;
             }
             else{
                 SDL_BlitSurface(imageSurface, NULL, screenSurface, NULL);
                 SDL_UpdateWindowSurface(window);
+            }*/
+
+            else if(ev.type == SDL_KEYDOWN){
+                if(ev.key.keysym.sym == SDLK_UP){
+                    currentImage = imageUp;
+                }
+                else if(ev.key.keysym.sym == SDLK_DOWN){
+                    currentImage = imageDown;
+                }
+                else if(ev.key.keysym.sym == SDLK_RIGHT){
+                    currentImage = imageRight;
+                }
+                else if(ev.key.keysym.sym == SDLK_LEFT){
+                    currentImage = imageLeft;
+                }
             }
-            
         }
+        SDL_BlitSurface(currentImage, NULL, screenSurface, NULL);
         SDL_UpdateWindowSurface(window);
     }
         
     
     SDL_FreeSurface(imageSurface);
+    SDL_FreeSurface(imageUp);
+    SDL_FreeSurface(imageDown);
+    SDL_FreeSurface(imageRight);
+    SDL_FreeSurface(imageLeft);
+    SDL_FreeSurface(currentImage);
     imageSurface = nullptr;
+    imageUp = nullptr;
+    imageDown = nullptr;
+    imageRight = nullptr;
+    imageLeft = nullptr;
+    currentImage = nullptr;
 
     //Destroy window
     SDL_DestroyWindow( window );
