@@ -3,8 +3,8 @@
 #include <iostream>
 
 #define SCREEN_NAME "SDL Tutorial"
-#define SCREEN_WIDTH 640;
-#define SCREEN_HEIGHT 480;
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
 
 int main( int argc, char* args[] ){
 
