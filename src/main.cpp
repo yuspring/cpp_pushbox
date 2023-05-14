@@ -12,7 +12,6 @@
 int main( int argc, char* args[] ){
 
     SDL_Window* window = NULL;
-
     SDL_Surface* screenSurface = NULL;
     SDL_Surface* imageSurface = NULL;
     SDL_Surface* imageUp = NULL;
