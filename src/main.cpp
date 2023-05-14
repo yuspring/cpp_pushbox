@@ -1,52 +1,134 @@
-//Using SDL and standard IO
 #include <SDL2/SDL.h>
 #include <iostream>
+#include <fstream>
+#include <cstdio>
+#include <cstdlib>
+#include <string>
 
-//Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+#define SCREEN_NAME "SDL Tutorial"
+#define SCREEN_WIDTH 600
+#define SCREEN_HEIGHT 600
 
 int main( int argc, char* args[] ){
 
     SDL_Window* window = NULL;
     SDL_Surface* screenSurface = NULL;
-
-    SDL_Init( SDL_INIT_VIDEO );
-    window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+    SDL_Surface* imageSurface = NULL;
+    SDL_Surface* imageUp = NULL;
+    SDL_Surface* imageDown = NULL;
+    SDL_Surface* imageRight = NULL;
+    SDL_Surface* imageLeft = NULL;
+    SDL_Surface* currentImage = NULL;
+    SDL_Surface* green = NULL;
+    SDL_Surface* gray = NULL;
     
-    bool isRunning = true;
 
-    SDL_Event e;
+    SDL_Init(SDL_INIT_VIDEO);
+    
+
+    window = SDL_CreateWindow(SCREEN_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    screenSurface = SDL_GetWindowSurface(window);
+    SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF ));
+    
+    imageUp = SDL_LoadBMP("imgs/Key_Up.bmp");
+    imageDown = SDL_LoadBMP("imgs/Key_Down.bmp");
+    imageRight = SDL_LoadBMP("imgs/Key_Right.bmp");
+    imageLeft = SDL_LoadBMP("imgs/Key_Left.bmp");
+    green = SDL_LoadBMP("imgs/green.bmp");
+    gray = SDL_LoadBMP("imgs/gray.bmp");
+    currentImage = imageDown;
+    
+
+    bool isRunning = true;
+    SDL_Event ev;
+
+    std::string s[10];
+    std::ifstream file("./maps/map.txt", std::ios::in);
+    int cnt = 0;
+    int x, y;
+    file >> x >> y;
+    while(!file.eof()){
+        file >> s[cnt];
+        std::cout << s[cnt] << '\n';
+        cnt++;
+    }
+    std::cout << x << " " << y << '\n';
+
+
+
 
     while(isRunning){
-
-        while(SDL_PollEvent(&e) != 0){
-            if(e.type == SDL_QUIT){
-                isRunning = false;
+        while(SDL_PollEvent(&ev) != 0){
+            if(ev.type == SDL_QUIT){
+                isRunning = false;          
             }
 
-            if(e.type == SDL_KEYDOWN){
+            /*imageSurface = SDL_LoadBMP("test.bmp");
+            if(imageSurface == NULL){
+                std::cout << "Image loading Error:" << SDL_GetError() << std::endl;
+            }
+            else{
+                SDL_BlitSurface(imageSurface, NULL, screenSurface, NULL);
+                SDL_UpdateWindowSurface(window);
+            }*/
 
-                if(e.key.keysym.sym == SDLK_1){
-                    std::cout << 1 << '\n';
+            else if(ev.type == SDL_KEYDOWN){
+                if(ev.key.keysym.sym == SDLK_UP){
+                    currentImage = imageUp;
                 }
-                else if(e.key.keysym.sym == SDLK_2){
-                    std::cout << 2 << '\n';
+                else if(ev.key.keysym.sym == SDLK_DOWN){
+                    currentImage = imageDown;
                 }
-                else if (e.key.keysym.sym == SDLK_3){
-                    std::cout << 3 << '\n';
+                else if(ev.key.keysym.sym == SDLK_RIGHT){
+                    currentImage = imageRight;
                 }
-
+                else if(ev.key.keysym.sym == SDLK_LEFT){
+                    currentImage = imageLeft;
+                }
             }
         }
-        SDL_UpdateWindowSurface( window );
+        
+        for(int i = 1; i <= x; i++){
+            for(int j = 1; j <= y; j++){
+                SDL_Rect rec;
+                rec.x = 50 * j;
+                rec.y = 50 * i;
+                if(s[i-1][j-1] == '#'){
+                    SDL_BlitSurface(gray, NULL, screenSurface, &rec);
+                }
+                else if(s[i-1][j-1] == '.'){
+                    SDL_BlitSurface(green, NULL, screenSurface, &rec);
+                }
+            }
+        }
+        
+        SDL_UpdateWindowSurface(window);
     }
+    
+        
+    
+    SDL_FreeSurface(imageSurface);
+    SDL_FreeSurface(imageUp);
+    SDL_FreeSurface(imageDown);
+    SDL_FreeSurface(imageRight);
+    SDL_FreeSurface(imageLeft);
+    SDL_FreeSurface(gray);
 
     
+    imageSurface = nullptr;
+    imageUp = nullptr;
+    imageDown = nullptr;
+    imageRight = nullptr;
+    imageLeft = nullptr;
+    currentImage = nullptr;
+    gray = nullptr;
 
-    SDL_DestroyWindow( window );
+    
+    SDL_DestroyWindow(window);
 
-    //Quit SDL subsystems
+    window = nullptr;
+    screenSurface = nullptr;
+
     SDL_Quit();
 
     return 0;
