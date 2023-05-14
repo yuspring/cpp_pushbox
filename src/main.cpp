@@ -1,6 +1,9 @@
 #include <SDL2/SDL.h>
-#include <cstdio>
 #include <iostream>
+#include <fstream>
+#include <cstdio>
+#include <cstdlib>
+#include <string>
 
 #define SCREEN_NAME "SDL Tutorial"
 #define SCREEN_WIDTH 600
@@ -18,7 +21,7 @@ int main( int argc, char* args[] ){
     SDL_Surface* imageLeft = NULL;
     SDL_Surface* currentImage = NULL;
     SDL_Surface* green = NULL;
-
+    SDL_Surface* gray = NULL;
     
 
     SDL_Init(SDL_INIT_VIDEO);
@@ -33,12 +36,28 @@ int main( int argc, char* args[] ){
     imageRight = SDL_LoadBMP("imgs/Key_Right.bmp");
     imageLeft = SDL_LoadBMP("imgs/Key_Left.bmp");
     green = SDL_LoadBMP("imgs/green.bmp");
+    gray = SDL_LoadBMP("imgs/gray.bmp");
     currentImage = imageDown;
     
 
     bool isRunning = true;
     SDL_Event ev;
-                
+
+    std::string s[10];
+    std::ifstream file("./maps/map.txt", std::ios::in);
+    int cnt = 0;
+    int x, y;
+    file >> x >> y;
+    while(!file.eof()){
+        file >> s[cnt];
+        std::cout << s[cnt] << '\n';
+        cnt++;
+    }
+    std::cout << x << " " << y << '\n';
+
+
+
+
     while(isRunning){
         while(SDL_PollEvent(&ev) != 0){
             if(ev.type == SDL_QUIT){
@@ -70,11 +89,18 @@ int main( int argc, char* args[] ){
             }
         }
         
-        for(int i = 1; i <= 8; i++){
-            SDL_Rect rec;
-            rec.x = 50 * i;
-            rec.y = 100;
-            SDL_BlitSurface(green, NULL, screenSurface, &rec);
+        for(int i = 1; i <= x; i++){
+            for(int j = 1; j <= y; j++){
+                SDL_Rect rec;
+                rec.x = 50 * j;
+                rec.y = 50 * i;
+                if(s[i-1][j-1] == '#'){
+                    SDL_BlitSurface(gray, NULL, screenSurface, &rec);
+                }
+                else if(s[i-1][j-1] == '.'){
+                    SDL_BlitSurface(green, NULL, screenSurface, &rec);
+                }
+            }
         }
         
         SDL_UpdateWindowSurface(window);
