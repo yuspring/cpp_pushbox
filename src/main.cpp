@@ -3,8 +3,8 @@
 #include <iostream>
 
 #define SCREEN_NAME "SDL Tutorial"
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 600
+#define SCREEN_HEIGHT 600
 
 int main( int argc, char* args[] ){
 
@@ -17,25 +17,24 @@ int main( int argc, char* args[] ){
     SDL_Surface* imageRight = NULL;
     SDL_Surface* imageLeft = NULL;
     SDL_Surface* currentImage = NULL;
+    SDL_Surface* green = NULL;
 
     
-    //Init SDL
+
     SDL_Init(SDL_INIT_VIDEO);
     
-    //Create window
+
     window = SDL_CreateWindow(SCREEN_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-
-    //Get window surface
     screenSurface = SDL_GetWindowSurface(window);
-
-    //Fill the surface white
     SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF ));
     
     imageUp = SDL_LoadBMP("imgs/Key_Up.bmp");
     imageDown = SDL_LoadBMP("imgs/Key_Down.bmp");
     imageRight = SDL_LoadBMP("imgs/Key_Right.bmp");
     imageLeft = SDL_LoadBMP("imgs/Key_Left.bmp");
+    green = SDL_LoadBMP("imgs/green.bmp");
     currentImage = imageDown;
+    
 
     bool isRunning = true;
     SDL_Event ev;
@@ -70,9 +69,17 @@ int main( int argc, char* args[] ){
                 }
             }
         }
-        SDL_BlitSurface(currentImage, NULL, screenSurface, NULL);
+        
+        for(int i = 1; i <= 8; i++){
+            SDL_Rect rec;
+            rec.x = 50 * i;
+            rec.y = 100;
+            SDL_BlitSurface(green, NULL, screenSurface, &rec);
+        }
+        
         SDL_UpdateWindowSurface(window);
     }
+    
         
     
     SDL_FreeSurface(imageSurface);
@@ -88,13 +95,12 @@ int main( int argc, char* args[] ){
     imageLeft = nullptr;
     currentImage = nullptr;
 
-    //Destroy window
+    
     SDL_DestroyWindow(window);
 
     window = nullptr;
     screenSurface = nullptr;
 
-    //Quit SDL subsystems
     SDL_Quit();
 
     return 0;
