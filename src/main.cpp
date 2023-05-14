@@ -31,10 +31,10 @@ int main( int argc, char* args[] ){
     //Fill the surface white
     SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF ));
     
-    imageUp = SDL_LoadBMP("Key_Up.bmp");
-    imageDown = SDL_LoadBMP("Key_Down.bmp");
-    imageRight = SDL_LoadBMP("Key_Right.bmp");
-    imageLeft = SDL_LoadBMP("Key_Left.bmp");
+    imageUp = SDL_LoadBMP("imgs/Key_Up.bmp");
+    imageDown = SDL_LoadBMP("imgs/Key_Down.bmp");
+    imageRight = SDL_LoadBMP("imgs/Key_Right.bmp");
+    imageLeft = SDL_LoadBMP("imgs/Key_Left.bmp");
     currentImage = imageDown;
 
     bool isRunning = true;
