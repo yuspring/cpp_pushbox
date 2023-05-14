@@ -26,6 +26,7 @@ int main( int argc, char* args[] ){
     SDL_Init(SDL_INIT_VIDEO);
     
     
+    
 
     window = SDL_CreateWindow(SCREEN_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     screenSurface = SDL_GetWindowSurface(window);
