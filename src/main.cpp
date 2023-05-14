@@ -113,6 +113,8 @@ int main( int argc, char* args[] ){
     SDL_FreeSurface(imageDown);
     SDL_FreeSurface(imageRight);
     SDL_FreeSurface(imageLeft);
+    SDL_FreeSurface(gray);
+
     
     imageSurface = nullptr;
     imageUp = nullptr;
@@ -120,6 +122,7 @@ int main( int argc, char* args[] ){
     imageRight = nullptr;
     imageLeft = nullptr;
     currentImage = nullptr;
+    gray = nullptr;
 
     
     SDL_DestroyWindow(window);
