@@ -1,0 +1,5 @@
+#ifndef SRC_OBJECT_CHARACTER_H
+#define SRC_OBJECT_CHARACTER_H
+
+
+#endif
