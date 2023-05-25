@@ -56,14 +56,30 @@ int main( int argc, char* args[] ){
     }
     std::cout << x << " " << y << '\n';
 
+    SDL_Rect player;
+    player.x = 0;
+    player.y = 0;
 
-
+     for(int i = 1; i <= x; i++){
+        for(int j = 1; j <= y; j++){
+            SDL_Rect rec;
+            rec.x = 40 * j;
+            rec.y = 40 * i;
+            if(s[i-1][j-1] == '#'){
+                SDL_BlitSurface(gray, NULL, screenSurface, &rec);
+            }
+            else if(s[i-1][j-1] == '.'){
+                SDL_BlitSurface(green, NULL, screenSurface, &rec);
+            }
+        }
+    }
 
     while(isRunning){
         while(SDL_PollEvent(&ev) != 0){
             if(ev.type == SDL_QUIT){
                 isRunning = false;          
             }
+           
 
             /*imageSurface = SDL_LoadBMP("test.bmp");
             if(imageSurface == NULL){
@@ -73,37 +89,41 @@ int main( int argc, char* args[] ){
                 SDL_BlitSurface(imageSurface, NULL, screenSurface, NULL);
                 SDL_UpdateWindowSurface(window);
             }*/
-
-            else if(ev.type == SDL_KEYDOWN){
+            
+            
+            
+            if(ev.type == SDL_KEYDOWN){
                 if(ev.key.keysym.sym == SDLK_UP){
                     currentImage = imageUp;
+                    SDL_BlitSurface(currentImage, NULL, screenSurface, &player);
+                    player.y -= 40;
+                    SDL_BlitSurface(currentImage, NULL, screenSurface, &player);
                 }
                 else if(ev.key.keysym.sym == SDLK_DOWN){
                     currentImage = imageDown;
+                    SDL_BlitSurface(NULL, NULL, screenSurface, &player);
+                    player.y += 40;
+                    SDL_BlitSurface(currentImage, NULL, screenSurface, &player);
                 }
                 else if(ev.key.keysym.sym == SDLK_RIGHT){
                     currentImage = imageRight;
+                    SDL_BlitSurface(NULL, NULL, screenSurface, &player);
+                    player.x -= 40;
+                    SDL_BlitSurface(currentImage, NULL, screenSurface, &player);
                 }
                 else if(ev.key.keysym.sym == SDLK_LEFT){
                     currentImage = imageLeft;
+                    SDL_BlitSurface(NULL, NULL, screenSurface, &player);
+                    player.x += 40;
+                    SDL_BlitSurface(currentImage, NULL, screenSurface, &player);
                 }
             }
         }
-        
-        for(int i = 1; i <= x; i++){
-            for(int j = 1; j <= y; j++){
-                SDL_Rect rec;
-                rec.x = 50 * j;
-                rec.y = 50 * i;
-                if(s[i-1][j-1] == '#'){
-                    SDL_BlitSurface(gray, NULL, screenSurface, &rec);
-                }
-                else if(s[i-1][j-1] == '.'){
-                    SDL_BlitSurface(green, NULL, screenSurface, &rec);
-                }
-            }
+        /*
+        if(SDL_flip(screenSurface) == -1){
+
         }
-        
+        */
         SDL_UpdateWindowSurface(window);
     }
     
