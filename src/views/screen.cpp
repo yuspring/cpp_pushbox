@@ -3,7 +3,6 @@
 #include <fstream>
 #include <cstdio>
 #include "screen.h"
-#include "render.h"
 
 app::app(){
     quit = false;
@@ -25,28 +24,26 @@ void app::init(){
     window = SDL_CreateWindow("My SDL Empty window", 
                                 SDL_WINDOWPOS_UNDEFINED, 
                                 SDL_WINDOWPOS_UNDEFINED, 
-                                800, 800, SDL_WINDOW_SHOWN);
-    screenSurface = SDL_GetWindowSurface(window);
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+                                900, 900, SDL_WINDOW_SHOWN);
+
+    renderer = SDL_CreateRenderer(window, -1, 0);
     
     app::render();
-    //app::create_map();
+    app::create_map();
 
 }
 
-
 void app::render(){
-    //green = loadTexture("imgs/green.bmp", renderer);
-    SDL_Surface *image = IMG_Load("imgs/gray.bmp");
-    SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer, image);
-    //green = loadTexture("imgs/gray.bmp", renderer);
-    if(green == NULL){
-            std::cout << "YES";
-    }
-    gray = loadTexture("imgs/gray.bmp", renderer);
+    //texture = SDL_CreateTextureFromSurface(renderer, image);
+    green = IMG_LoadTexture(renderer, "imgs/green.bmp");
+    gray = IMG_LoadTexture(renderer, "imgs/gray.bmp");
+    SDL_Rect rect = {100, 100, 40, 40};
+    SDL_RenderCopy(renderer, green, nullptr, &rect);
+    SDL_RenderPresent(renderer);
 }
 
 void app::create_map(){
+
     std::string s[10];
     std::ifstream file("maps/map.txt", std::ios::in);
     int cnt = 0;
@@ -54,29 +51,28 @@ void app::create_map(){
     file >> x >> y;
     while(!file.eof()){
         file >> s[cnt];
-        std::cout << s[cnt] << '\n';
+        //std::cout << s[cnt] << '\n';
         cnt++;
     }
-    std::cout << x << " " << y << '\n';
-
+    //std::cout << x << " " << y << '\n';
+    
     for(int i = 1; i <= x; i++){
         for(int j = 1; j <= y; j++){
-            SDL_Rect rec;
-            rec.x = 50 * j;
-            rec.y = 50 * i;
-            rec.w = 40;
-            rec.h = 40;
+            
+            SDL_Rect rec = {40 * j, 40 * i, 40, 40};
             if(s[i-1][j-1] == '#'){
-                SDL_RenderCopy(renderer, gray, NULL, &rec);
+                SDL_RenderCopy(renderer, gray, nullptr, &rec);
             }
             else if(s[i-1][j-1] == '.'){
-                SDL_RenderCopy(renderer, green, NULL, &rec);
+                SDL_RenderCopy(renderer, green, nullptr, &rec);
             }
         }
     }
-    SDL_RenderPresent(renderer);
+
 }
 
+void app::screen(){
+}
 
 void app::run(){
 
@@ -96,22 +92,17 @@ void app::run(){
                     
                 }
                 else if(event.key.keysym.sym == SDLK_RIGHT){
-                    
+
                 }
                 else if(event.key.keysym.sym == SDLK_LEFT){
-                    
+
                 }
             }
         }
-        SDL_Rect rec;
-        rec.x = 50;
-        rec.y = 50;
-        rec.w = 40;
-        rec.h = 40;
-        //SDL_RenderCopy(renderer, gray, NULL, &rec);
-        renderTexture(green, renderer, 50, 50 ,40 ,40);
+        SDL_RenderClear( renderer );
+        app::create_map();
+        SDL_RenderPresent( renderer );
         
-        SDL_RenderPresent(renderer);
     }
 
 }
