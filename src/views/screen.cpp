@@ -32,7 +32,7 @@ void app::init(){
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     
     app::render();
-    app::create_map();
+    //app::create_map();
 
 }
 

@@ -26,7 +26,6 @@ class app{
         void init();
         
         void clear() const;
-        void create_map();
         void pollEvents();
         void run();
         int _X , _Y;
