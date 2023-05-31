@@ -4,6 +4,7 @@
 #include <cstdio>
 #include "screen.h"
 
+
 app::app(){
     quit = false;
 }
@@ -57,21 +58,65 @@ void app::create_map(){
     std::cout << x << " " << y << '\n';
 
 }
+void app::pollEvents(){
 
-void app::run(){
-
-    while(!quit){
-        SDL_PollEvent(&event);
-
+    if(SDL_PollEvent(&event)){
         switch (event.type) {
             case SDL_QUIT: {
                 quit = true;
                 break;
             }
+            case SDL_KEYDOWN:{
+                switch(event.key.keysym.sym){
+                    case SDLK_RIGHT:{
+                        std::cout << "You clicked right bottom.\n";
+                        break;
+                    }
+
+                    case SDLK_LEFT:{
+                        std::cout << "You clicked left bottom.\n";
+                        break;
+                    }
+
+                    case SDLK_UP:{
+                        std::cout << "You clicked up bottom.\n";
+                        break;
+                    }
+
+                    case SDLK_DOWN:{
+                        std::cout << "You clicked down bottom.\n";
+                        break;
+                    }
+
+                    default:{
+                        break;
+                    }
+                }
+                break;
+            }
+            
+            default:{
+                break;
+            }
         }
+    }
+}
+
+void app::clear() const{
+    SDL_RenderPresent(renderer);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
+    SDL_RenderClear(renderer);
+}
+
+void app::run(){
+    while(!quit){
+        app::pollEvents();
+        app::clear();
+
         SDL_Rect rect = {5, 5, 300, 200};
         SDL_RenderCopy(renderer, texture, nullptr, &rect);
         SDL_RenderPresent(renderer);
     }
 
 }
+
