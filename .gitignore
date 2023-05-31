@@ -3,3 +3,4 @@
 game.exe
 game
 bin
+*.o
