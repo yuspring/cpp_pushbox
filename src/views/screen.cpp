@@ -27,19 +27,22 @@ void app::init(){
                                 640, 480, SDL_WINDOW_SHOWN);
 
     renderer = SDL_CreateRenderer(window, -1, 0);
-    image = SDL_LoadBMP("imgs/green.bmp");
-
-    if (image == nullptr) {
-        std::cerr << "SDL_LoadBMP failed\n";
-    }
-    texture = SDL_CreateTextureFromSurface(renderer, image);
+    
+    app::load_picture();
+    app::render();
+    
 
 }
 
 void app::load_picture(){
+    image = IMG_Load("imgs/green.bmp");
+    if (image == nullptr) {
+        std::cerr << "SDL_LoadBMP failed\n";
+    }
 }
 
 void app::render(){
+    texture = SDL_CreateTextureFromSurface(renderer, image);
 }
 
 void app::create_map(){
@@ -58,6 +61,9 @@ void app::create_map(){
 
 }
 
+void app::screen(){
+}
+
 void app::run(){
 
     while(!quit){
@@ -67,6 +73,20 @@ void app::run(){
             case SDL_QUIT: {
                 quit = true;
                 break;
+            }
+            case SDL_KEYDOWN: {
+                if(event.key.keysym.sym == SDLK_UP){
+                    
+                }
+                else if(event.key.keysym.sym == SDLK_DOWN){
+                    
+                }
+                else if(event.key.keysym.sym == SDLK_RIGHT){
+                    currentImage = imageRight;
+                }
+                else if(event.key.keysym.sym == SDLK_LEFT){
+                    currentImage = imageLeft;
+                }
             }
         }
         SDL_Rect rect = {5, 5, 300, 200};

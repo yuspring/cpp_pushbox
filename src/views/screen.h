@@ -1,7 +1,8 @@
 #ifndef SRC_VIEWS_SCREEN_H
 #define SRC_VIEWS_SCREEN_H
 
-#include<SDL2/SDL.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 class app{
 
@@ -21,7 +22,7 @@ class app{
         void load_picture();
         void render();
         void screen();
-        
+
         void init();
         
         void create_map();
