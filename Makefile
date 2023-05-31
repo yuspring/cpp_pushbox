@@ -42,3 +42,8 @@ screen.o : ./src/views/screen.cpp render.o
 	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) 
 render.o : ./src/views/render.cpp
 	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) 
+
+chest.o : ./src/object/chest.cpp
+	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) 
+rect.o : ./src/views/rect.cpp
+	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) 

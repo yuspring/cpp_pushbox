@@ -10,10 +10,11 @@ class app{
         bool quit;
         SDL_Event event;
         SDL_Window *window;
-        SDL_Renderer *renderer;
         SDL_Surface *image;
         SDL_Texture *green, *gray, *test;
 
+        SDL_Texture *texture;
+        SDL_Renderer *renderer;       
 
     public:
         app();
@@ -24,9 +25,12 @@ class app{
 
         void init();
         
-        
+        void clear() const;
+        void create_map();
+        void pollEvents();
         void run();
         int _X , _Y;
+
 
 
 

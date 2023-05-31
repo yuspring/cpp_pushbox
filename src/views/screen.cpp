@@ -4,6 +4,7 @@
 #include <cstdio>
 #include "screen.h"
 
+
 app::app(){
     quit = false;
     _X = 40;
@@ -53,22 +54,8 @@ void app::create_map(){
         file >> s[cnt];
         cnt++;
     }
-    for(int i = 1; i <= x; i++){
-        for(int j = 1; j <= y; j++){
-            
-            SDL_Rect rec = {40 * j, 40 * i, 40, 40};
-            if(s[i-1][j-1] == '#'){
-                SDL_RenderCopy(renderer, gray, nullptr, &rec);
-            }
-            else if(s[i-1][j-1] == '.'){
-                SDL_RenderCopy(renderer, green, nullptr, &rec);
-            }
-        }
-    }
+    std::cout << x << " " << y << '\n';
 
-}
-
-void app::screen(){
 }
 
 void app::run(){
@@ -112,3 +99,4 @@ void app::run(){
     }
 
 }
+
