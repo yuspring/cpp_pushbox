@@ -27,7 +27,7 @@ else
 	SDL2_OPTIONS = -lSDL2 -lSDL2_image -lSDL2_ttf
 endif
 
-_OFILE = screen.o 
+_OFILE = screen.o render.o
 
 all : game
 
@@ -38,5 +38,7 @@ clean :
 game : ./src/main.cpp $(_OFILE)
 	g++ $^ -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) 
 
-screen.o : ./src/views/screen.cpp
+screen.o : ./src/views/screen.cpp render.o
+	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) 
+render.o : ./src/views/render.cpp
 	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) 

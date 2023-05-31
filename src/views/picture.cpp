@@ -1,8 +1,5 @@
 #include "picture.h"
 
-#include <map>
-
-
 void picture::pic_init(){
     
     mp.insert("green", );

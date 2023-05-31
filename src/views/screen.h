@@ -11,21 +11,16 @@ class app{
         SDL_Event event;
         SDL_Window *window;
         SDL_Renderer *renderer;
-        SDL_Surface *image;
-        SDL_Texture *texture;
+        SDL_Texture *green, *gray;
 
 
     public:
         app();
         ~app();
 
-        void load_picture();
         void render();
-        void screen();
-
-        void init();
-        
         void create_map();
+        void init();
         void run();
 
 

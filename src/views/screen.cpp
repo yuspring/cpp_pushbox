@@ -3,14 +3,15 @@
 #include <fstream>
 #include <cstdio>
 #include "screen.h"
+#include "render.h"
 
 app::app(){
     quit = false;
 }
 
 app::~app(){
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(image);
+    SDL_DestroyTexture(green);
+    SDL_DestroyTexture(gray);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -26,23 +27,17 @@ void app::init(){
                                 SDL_WINDOWPOS_UNDEFINED, 
                                 640, 480, SDL_WINDOW_SHOWN);
 
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     
-    app::load_picture();
     app::render();
     
 
 }
 
-void app::load_picture(){
-    image = IMG_Load("imgs/green.bmp");
-    if (image == nullptr) {
-        std::cerr << "SDL_LoadBMP failed\n";
-    }
-}
 
 void app::render(){
-    texture = SDL_CreateTextureFromSurface(renderer, image);
+    green = loadTexture("imgs/green.bmp", renderer);
+    gray = loadTexture("imgs/gray.bmp", renderer);
 }
 
 void app::create_map(){
@@ -82,15 +77,15 @@ void app::run(){
                     
                 }
                 else if(event.key.keysym.sym == SDLK_RIGHT){
-                    currentImage = imageRight;
+                    
                 }
                 else if(event.key.keysym.sym == SDLK_LEFT){
-                    currentImage = imageLeft;
+                    
                 }
             }
         }
-        SDL_Rect rect = {5, 5, 300, 200};
-        SDL_RenderCopy(renderer, texture, nullptr, &rect);
+        renderTexture(green, renderer, 30, 30, 50, 50);
+        renderTexture(gray, renderer, 35, 35, 50, 50);
         SDL_RenderPresent(renderer);
     }
 
