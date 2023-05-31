@@ -6,6 +6,8 @@
 
 app::app(){
     quit = false;
+    _X = 40;
+    _Y = 40;
 }
 
 app::~app(){
@@ -26,7 +28,7 @@ void app::init(){
                                 SDL_WINDOWPOS_UNDEFINED, 
                                 900, 900, SDL_WINDOW_SHOWN);
 
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     
     app::render();
     app::create_map();
@@ -34,12 +36,10 @@ void app::init(){
 }
 
 void app::render(){
-    //texture = SDL_CreateTextureFromSurface(renderer, image);
     green = IMG_LoadTexture(renderer, "imgs/green.bmp");
     gray = IMG_LoadTexture(renderer, "imgs/gray.bmp");
-    SDL_Rect rect = {100, 100, 40, 40};
-    SDL_RenderCopy(renderer, green, nullptr, &rect);
-    SDL_RenderPresent(renderer);
+    test = IMG_LoadTexture(renderer, "imgs/test.bmp");
+
 }
 
 void app::create_map(){
@@ -51,11 +51,8 @@ void app::create_map(){
     file >> x >> y;
     while(!file.eof()){
         file >> s[cnt];
-        //std::cout << s[cnt] << '\n';
         cnt++;
     }
-    //std::cout << x << " " << y << '\n';
-    
     for(int i = 1; i <= x; i++){
         for(int j = 1; j <= y; j++){
             
@@ -78,7 +75,14 @@ void app::run(){
 
     while(!quit){
         SDL_PollEvent(&event);
+        
 
+        
+        //app::create_map();
+        SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
+        SDL_RenderClear(renderer);
+
+        SDL_Rect rec = { _X , _Y, 40 ,40};
         switch (event.type) {
             case SDL_QUIT: {
                 quit = true;
@@ -86,21 +90,23 @@ void app::run(){
             }
             case SDL_KEYDOWN: {
                 if(event.key.keysym.sym == SDLK_UP){
-                    
+                    _Y -= 10;                  
                 }
                 else if(event.key.keysym.sym == SDLK_DOWN){
-                    
+                    _Y += 10;
                 }
                 else if(event.key.keysym.sym == SDLK_RIGHT){
-
+                    _X += 10;
                 }
                 else if(event.key.keysym.sym == SDLK_LEFT){
-
+                    _X -= 10;      
                 }
             }
         }
-        SDL_RenderClear( renderer );
-        app::create_map();
+
+        SDL_RenderCopy(renderer, test, nullptr, &rec);
+        
+
         SDL_RenderPresent( renderer );
         
     }

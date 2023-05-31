@@ -12,7 +12,7 @@ class app{
         SDL_Window *window;
         SDL_Renderer *renderer;
         SDL_Surface *image;
-        SDL_Texture *green, *gray;
+        SDL_Texture *green, *gray, *test;
 
 
     public:
@@ -26,6 +26,7 @@ class app{
         
         
         void run();
+        int _X , _Y;
 
 
 
