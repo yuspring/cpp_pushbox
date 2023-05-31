@@ -25,25 +25,30 @@ void app::init(){
     window = SDL_CreateWindow("My SDL Empty window", 
                                 SDL_WINDOWPOS_UNDEFINED, 
                                 SDL_WINDOWPOS_UNDEFINED, 
-                                640, 480, SDL_WINDOW_SHOWN);
-
+                                800, 800, SDL_WINDOW_SHOWN);
+    screenSurface = SDL_GetWindowSurface(window);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     
     app::render();
-    
+    //app::create_map();
 
 }
 
 
 void app::render(){
-    green = loadTexture("imgs/green.bmp", renderer);
+    //green = loadTexture("imgs/green.bmp", renderer);
+    SDL_Surface *image = IMG_Load("imgs/gray.bmp");
+    SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer, image);
+    //green = loadTexture("imgs/gray.bmp", renderer);
+    if(green == NULL){
+            std::cout << "YES";
+    }
     gray = loadTexture("imgs/gray.bmp", renderer);
 }
 
 void app::create_map(){
-
     std::string s[10];
-    std::ifstream file("./maps/map.txt", std::ios::in);
+    std::ifstream file("maps/map.txt", std::ios::in);
     int cnt = 0;
     int x, y;
     file >> x >> y;
@@ -54,10 +59,24 @@ void app::create_map(){
     }
     std::cout << x << " " << y << '\n';
 
+    for(int i = 1; i <= x; i++){
+        for(int j = 1; j <= y; j++){
+            SDL_Rect rec;
+            rec.x = 50 * j;
+            rec.y = 50 * i;
+            rec.w = 40;
+            rec.h = 40;
+            if(s[i-1][j-1] == '#'){
+                SDL_RenderCopy(renderer, gray, NULL, &rec);
+            }
+            else if(s[i-1][j-1] == '.'){
+                SDL_RenderCopy(renderer, green, NULL, &rec);
+            }
+        }
+    }
+    SDL_RenderPresent(renderer);
 }
 
-void app::screen(){
-}
 
 void app::run(){
 
@@ -84,8 +103,14 @@ void app::run(){
                 }
             }
         }
-        renderTexture(green, renderer, 30, 30, 50, 50);
-        renderTexture(gray, renderer, 35, 35, 50, 50);
+        SDL_Rect rec;
+        rec.x = 50;
+        rec.y = 50;
+        rec.w = 40;
+        rec.h = 40;
+        //SDL_RenderCopy(renderer, gray, NULL, &rec);
+        renderTexture(green, renderer, 50, 50 ,40 ,40);
+        
         SDL_RenderPresent(renderer);
     }
 

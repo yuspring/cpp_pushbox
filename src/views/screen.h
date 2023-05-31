@@ -12,6 +12,8 @@ class app{
         SDL_Window *window;
         SDL_Renderer *renderer;
         SDL_Texture *green, *gray;
+        SDL_Surface* screenSurface;
+        
 
 
     public:
