@@ -9,12 +9,31 @@ void map::map_load(std::string _path){
     std::cout << x << " " << y << "\n";
     this->_X = x;
     this->_Y = y;
-    while (!file.eof())
-    {
+    while (!file.eof()){
         file >> _map[cnt];
         std::cout << _map[cnt] << '\n';
         cnt++;
     }
+
+    for(int i = 1; i <= _X; i++){
+        for(int j = 1; j <= _Y; j++){
+            
+            SDL_Rect rec = {40 * j, 40 * i, 40, 40};
+            if(_map[i-1][j-1] == '#'){
+                object.set_coord(0, i-1, j-1);
+            }
+            else if(_map[i-1][j-1] == '.'){
+                object.set_coord(1, i-1, j-1);
+            }
+            else if(_map[i-1][j-1] == 'C'){
+                object.set_coord(2, i-1, j-1);
+            }
+            else if(_map[i-1][j-1] == 'P'){
+                object.set_coord(3, i-1, j-1);
+            }
+        }
+    }
+
 }
 
 int map::get_mapitem(int x, int y){
@@ -37,9 +56,18 @@ void map::map_render(SDL_Texture *tex1, SDL_Texture *tex2, SDL_Renderer *rendere
             SDL_Rect rec = {40 * j, 40 * i, 40, 40};
             if(_map[i-1][j-1] == '#'){
                 SDL_RenderCopy(renderer, tex1, nullptr, &rec);
+                object.set_coord(0, i-1, j-1);
             }
             else if(_map[i-1][j-1] == '.'){
                 SDL_RenderCopy(renderer, tex2, nullptr, &rec);
+                object.set_coord(0, i-1, j-1);
+            }
+            else if(_map[i-1][j-1] == 'C'){
+                object.set_coord(0, i-1, j-1);
+            }
+            else if(_map[i-1][j-1] == 'P'){
+                SDL_RenderCopy(renderer, tex2, nullptr, &rec);
+                object.set_coord(0, i-1, j-1);
             }
         }
     }

@@ -1,7 +1,10 @@
 #include "character.h"
-#include <iostream>
 
 
+player::player(){
+    _X = 80;
+    _Y = 80;
+}
 
 int player::ifItem(map _map, int x, int y)
 {
@@ -77,9 +80,6 @@ SDL_Rect player::player_walk(SDL_Event event, map _map){
         return rec;
 }
 
-void player::render(){
-
-}
 
 void player::movement(int direction){
     switch(direction){
