@@ -27,7 +27,7 @@ else
 	SDL2_OPTIONS = -lSDL2 -lSDL2_image -lSDL2_ttf
 endif
 
-_OFILE = screen.o picture.o
+_OFILE = screen.o picture.o map.o
 _C_OPTION = -std=c++11
 
 all : game
@@ -43,4 +43,7 @@ screen.o : ./src/views/screen.cpp
 	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) $(_C_OPTION) 
 
 picture.o : ./src/views/picture.cpp
+	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) $(_C_OPTION)
+
+map.o : ./src/views/map.cpp
 	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) $(_C_OPTION)

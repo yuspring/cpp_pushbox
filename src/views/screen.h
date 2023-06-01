@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "picture.h"
+#include "map.h"
 
 class app{
 
@@ -11,11 +12,10 @@ class app{
         bool quit;
         SDL_Event event;
         SDL_Window *window;
-        SDL_Surface *image;
-        SDL_Texture *green, *gray, *test;
+        SDL_Renderer *renderer;   
         std::map<std::string, picture> _mp;
-        SDL_Texture *texture;
-        SDL_Renderer *renderer;       
+        map first_map;
+            
 
     public:
         app();
