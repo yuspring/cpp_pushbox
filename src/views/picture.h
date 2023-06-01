@@ -6,16 +6,19 @@
 #include <string>
 #include <map>
 
-std::map<std::string, picture> mp;
 
 class picture{
+    private:
+        std::string name;
+        SDL_Texture *tex;
     public :
-        void pic_set(std::string _PATH);
-        void pic_init();
-        void pic_get(std::string _NAME);
-        std::string file_path;
-        SDL_Surface *image;
+        picture() = default;
+        picture(std::string _name, std::string _path, SDL_Renderer * render);
+        SDL_Texture * get_tex();
+        
 };
+
+std::map<std::string, picture> init_picture(SDL_Renderer * render);
 
 
 #endif

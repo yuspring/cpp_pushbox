@@ -5,6 +5,8 @@
 #include "screen.h"
 
 
+
+
 app::app(){
     quit = false;
     _X = 40;
@@ -12,8 +14,8 @@ app::app(){
 }
 
 app::~app(){
-    SDL_DestroyTexture(green);
-    SDL_DestroyTexture(gray);
+    //SDL_DestroyTexture(green);
+    //SDL_DestroyTexture(gray);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -31,12 +33,11 @@ void app::init(){
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     
-    app::render();
-    //app::create_map();
+    _mp = init_picture(renderer);
 
 }
 
-void app::render(){
+void app::loading_texture(){
     green = IMG_LoadTexture(renderer, "imgs/green.bmp");
     gray = IMG_LoadTexture(renderer, "imgs/gray.bmp");
     test = IMG_LoadTexture(renderer, "imgs/test.bmp");
@@ -54,7 +55,20 @@ void app::create_map(){
         file >> s[cnt];
         cnt++;
     }
-    std::cout << x << " " << y << '\n';
+    //std::cout << x << " " << y << '\n';
+
+    for(int i = 1; i <= x; i++){
+        for(int j = 1; j <= y; j++){
+            
+            SDL_Rect rec = {40 * j, 40 * i, 40, 40};
+            if(s[i-1][j-1] == '#'){
+                SDL_RenderCopy(renderer, _mp["gray"].get_tex(), nullptr, &rec);
+            }
+            else if(s[i-1][j-1] == '.'){
+                SDL_RenderCopy(renderer, _mp["green"].get_tex(), nullptr, &rec);
+            }
+        }
+    }
 
 }
 
@@ -65,10 +79,11 @@ void app::run(){
         
 
         
-        //app::create_map();
+        
         SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
+        ;
         SDL_RenderClear(renderer);
-
+        app::create_map();
         SDL_Rect rec = { _X , _Y, 40 ,40};
         switch (event.type) {
             case SDL_QUIT: {
@@ -91,7 +106,7 @@ void app::run(){
             }
         }
 
-        SDL_RenderCopy(renderer, test, nullptr, &rec);
+        SDL_RenderCopy(renderer, _mp["test"].get_tex(), nullptr, &rec);
         
 
         SDL_RenderPresent( renderer );

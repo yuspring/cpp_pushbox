@@ -27,7 +27,8 @@ else
 	SDL2_OPTIONS = -lSDL2 -lSDL2_image -lSDL2_ttf
 endif
 
-_OFILE = screen.o render.o
+_OFILE = screen.o picture.o
+_C_OPTION = -std=c++11
 
 all : game
 
@@ -36,14 +37,10 @@ clean :
 	rm -f game
 
 game : ./src/main.cpp $(_OFILE)
-	g++ $^ -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) 
+	g++ $^ -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) $(_C_OPTION) 
 
-screen.o : ./src/views/screen.cpp render.o
-	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) 
-render.o : ./src/views/render.cpp
-	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) 
+screen.o : ./src/views/screen.cpp 
+	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) $(_C_OPTION) 
 
-chest.o : ./src/object/chest.cpp
-	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) 
-rect.o : ./src/views/rect.cpp
-	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) 
+picture.o : ./src/views/picture.cpp
+	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) $(_C_OPTION)
