@@ -6,15 +6,28 @@ void map::map_load(std::string _path){
     int cnt = 0;
     int x, y;
     file >> x >> y;
-    std::cout << x << " " << y;
+    std::cout << x << " " << y << "\n";
     this->_X = x;
     this->_Y = y;
     while (!file.eof())
     {
         file >> _map[cnt];
-        std::cout << _map[cnt];
+        std::cout << _map[cnt] << '\n';
         cnt++;
     }
+}
+
+int map::get_mapitem(int x, int y){
+    if(_map[x][y] == '#'){
+        return 0;
+    }
+    else if(_map[x][y] == '.'){
+        return 1;
+    }
+    else if(_map[x][y] == 'C'){
+        return 2;
+    }
+    return -1;
 }
 
 void map::map_render(SDL_Texture *tex1, SDL_Texture *tex2, SDL_Renderer *renderer){

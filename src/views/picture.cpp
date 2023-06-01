@@ -14,12 +14,12 @@ SDL_Texture * picture::get_tex(){
 
 std::map<std::string, picture> init_picture(SDL_Renderer * render){
     std::map<std::string, picture> mp;
-    picture green("green", "imgs/green.bmp", render);
-    picture gray("gray", "imgs/gray.bmp", render);
-    picture test("test", "imgs/test.bmp", render);
+    picture gress("green", "imgs/gress.png", render);
+    picture wall("gray", "imgs/wall.png", render);
+    picture player("test", "imgs/man.png", render);
     
-    mp["green"] = green;
-    mp["gray"] = gray;
-    mp["test"] = test;
+    mp["gress"] = gress;
+    mp["wall"] = wall;
+    mp["player"] = player;
     return mp;
 }

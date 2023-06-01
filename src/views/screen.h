@@ -20,8 +20,6 @@ class app{
     public:
         app();
         ~app();
-        void loading_texture();
-        void create_map();
 
         void init();
         void run();

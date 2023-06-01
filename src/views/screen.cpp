@@ -3,17 +3,13 @@
 #include "screen.h"
 
 
-
-
 app::app(){
     quit = false;
-    _X = 40;
-    _Y = 40;
+    _X = 80;
+    _Y = 80;
 }
 
 app::~app(){
-    //SDL_DestroyTexture(green);
-    //SDL_DestroyTexture(gray);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -21,9 +17,7 @@ app::~app(){
 
 void app::init(){
 
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-        std::cerr << "Unable to initialize SDL lib";
-    }
+    SDL_Init(SDL_INIT_VIDEO);
     window = SDL_CreateWindow("My SDL Empty window", 
                                 SDL_WINDOWPOS_UNDEFINED, 
                                 SDL_WINDOWPOS_UNDEFINED, 
@@ -36,27 +30,16 @@ void app::init(){
 
 }
 
-void app::create_map(){
-
-    
-
-
-    
-
-}
 
 void app::run(){
 
     while(!quit){
         SDL_PollEvent(&event);
         
-
-        
-        
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        ;
+        SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 255);
         SDL_RenderClear(renderer);
-        first_map.map_render(_mp["green"].get_tex(), _mp["gray"].get_tex(), renderer);
+        first_map.map_render(_mp["wall"].get_tex(), _mp["gress"].get_tex(), renderer);
+
         SDL_Rect rec = { _X , _Y, 40 ,40};
         switch (event.type) {
             case SDL_QUIT: {
@@ -79,7 +62,7 @@ void app::run(){
             }
         }
 
-        SDL_RenderCopy(renderer, _mp["test"].get_tex(), nullptr, &rec);
+        SDL_RenderCopy(renderer, _mp["player"].get_tex(), nullptr, &rec);
         
 
         SDL_RenderPresent( renderer );
