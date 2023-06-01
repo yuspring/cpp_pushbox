@@ -6,7 +6,8 @@
 #include "picture.h"
 #include "map.h"
 #include "../object/character.h"
-
+#include "../object/chest.h"
+#include "../object/destination.h"
 
 class app{
 
@@ -17,7 +18,9 @@ class app{
         SDL_Renderer *renderer;   
         std::map<std::string, picture> _mp;
         map first_map;
-        player _player;    
+        player _player;
+        chest _chest;    
+        dest _dest;
 
     public:
         app();

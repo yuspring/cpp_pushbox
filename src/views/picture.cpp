@@ -16,10 +16,15 @@ std::map<std::string, picture> init_picture(SDL_Renderer * render){
     std::map<std::string, picture> mp;
     picture gress("green", "imgs/gress.png", render);
     picture wall("gray", "imgs/wall.png", render);
-    picture player("test", "imgs/man.png", render);
-    
+    picture player("player", "imgs/man.png", render);
+    picture chest("chest", "imgs/box.png", render);
+    picture gray("gray", "imgs/gray.bmp", render);
+
     mp["gress"] = gress;
     mp["wall"] = wall;
     mp["player"] = player;
+    mp["chest"] = chest;
+    mp["gray"] = gray;
+    
     return mp;
 }

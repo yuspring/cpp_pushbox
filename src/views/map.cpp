@@ -31,6 +31,9 @@ void map::map_load(std::string _path){
             else if(_map[i-1][j-1] == 'P'){
                 object.set_coord(3, i-1, j-1);
             }
+            else if(_map[i-1][j-1] == 'E'){
+                object.set_coord(4, i-1, j-1);
+            }
         }
     }
 
