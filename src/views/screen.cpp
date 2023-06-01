@@ -43,7 +43,8 @@ void app::run(){
         
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 255);
         SDL_RenderClear(renderer);
-        first_map.map_render(_mp["wall"].get_tex(), _mp["gress"].get_tex(), renderer);
+        _dest.render(_dest._rect,renderer, _mp["gray"].get_tex() );
+        first_map.map_render(_mp["wall"].get_tex(), _mp["gress"].get_tex(),_mp["chest"].get_tex(), renderer);
 
         switch (event.type) {
             case SDL_QUIT: {
@@ -51,13 +52,14 @@ void app::run(){
                 break;
             }
         }
+        //first_map.map_show();
+        //_chest.render(_chest._rect,renderer, _mp["chest"].get_tex() );
+        _player.render(_player.player_walk(event, &first_map, &_chest),renderer, _mp["player"].get_tex() );
         
-        _player.render(_player.player_walk(event, first_map, _chest),renderer, _mp["player"].get_tex() );
         
-        _chest.render(_chest._rect,renderer, _mp["chest"].get_tex() );
-        _chest.render(_dest._rect,renderer, _mp["gray"].get_tex() );
 
         SDL_RenderPresent(renderer);
+       //first_map.map_show();
         
     }
 

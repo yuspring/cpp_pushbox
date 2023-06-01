@@ -49,8 +49,8 @@ void object::movement(int direction){
 }
 
 void object::set_rect(int x, int y){
-    this->_rect.x = _X;
-    this->_rect.y = _Y;
+    this->_rect.x = x;
+    this->_rect.y = y;
     this->_rect.h = 40;
     this->_rect.w = 40;
 }
