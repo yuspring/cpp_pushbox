@@ -25,7 +25,7 @@ void app::init(){
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     
-    first_map.map_load("maps/map.txt");
+    first_map.map_load("maps/map1.txt");
     _mp = init_picture(renderer);
 
 }
@@ -40,12 +40,14 @@ void app::run(){
         SDL_RenderClear(renderer);
         first_map.map_render(_mp["wall"].get_tex(), _mp["gress"].get_tex(), renderer);
 
-        SDL_Rect rec = { _X , _Y, 40 ,40};
+        SDL_Rect rec = _player.player_walk(event, first_map);
+        //SDL_Rect rec = {_X, _Y, 40, 40};
         switch (event.type) {
             case SDL_QUIT: {
                 quit = true;
                 break;
             }
+    /*
             case SDL_KEYDOWN: {
                 if(event.key.keysym.sym == SDLK_UP){
                     _Y -= 40;                  
@@ -60,8 +62,11 @@ void app::run(){
                     _X -= 40;      
                 }
             }
+            */
+            
         }
-
+        
+        //std::cout << rec.x << " " << rec.y << '\n';
         SDL_RenderCopy(renderer, _mp["player"].get_tex(), nullptr, &rec);
         
 

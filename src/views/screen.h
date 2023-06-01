@@ -5,6 +5,8 @@
 #include <SDL2/SDL_image.h>
 #include "picture.h"
 #include "map.h"
+#include "../object/character.h"
+
 
 class app{
 
@@ -15,7 +17,7 @@ class app{
         SDL_Renderer *renderer;   
         std::map<std::string, picture> _mp;
         map first_map;
-            
+        player _player;    
 
     public:
         app();
