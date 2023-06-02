@@ -1,4 +1,5 @@
 #include "chest.h"
+
 void chest::move(int dire, map* _map, chest * chest, int _X, int _Y){
     if(dire == 0){
         chest->movement(0);

@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "screen.h"
 
 
@@ -28,7 +26,6 @@ void app::init(){
     
     app::set_map();
     app::set_coord();
-
     _mp = init_picture(renderer);
 
 }
@@ -46,10 +43,11 @@ void app::run(){
 
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 255);
         SDL_RenderClear(renderer);
+        //first_map.map_render(_mp["wall"].tex(), _mp["gress"].tex(),_mp["chest"].tex(), renderer);
+        first_map.map_render(_mp["gress"].tex(), renderer, '.');
+        first_map.map_render(_mp["wall"].tex(), renderer, '#');
         _dest.render(_dest._rect,renderer, _mp["gray"].tex() );
-        first_map.map_render(_mp["wall"].tex(), _mp["gress"].tex(),_mp["chest"].tex(), renderer);
-
-        
+        first_map.map_render(_mp["chest"].tex(), renderer, 'C');
         _player.render(_player.player_walk(event, &first_map, &_chest),renderer, _mp["player"].tex() );
         SDL_RenderPresent(renderer);
     }

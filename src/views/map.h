@@ -21,7 +21,7 @@ class map{
         std::string _map[50];
         int get_mapitem(int x, int y);
         void map_load(std::string _path);
-        void map_render(SDL_Texture *tex1, SDL_Texture *tex2,SDL_Texture *tex3, SDL_Renderer *renderer);
+        void map_render(SDL_Texture *tex1, SDL_Renderer *renderer, char _c);
         coord_map object;
         
         char map_show(int x, int y);

@@ -35,6 +35,10 @@ SDL_Rect player::player_walk(SDL_Event event, map* _map, chest* _chest){
                             }  
                             break;
                         }
+                        case 3:{
+                            player::movement(0);
+                            break;
+                        } 
                         
                     }                 
                 }
@@ -55,6 +59,10 @@ SDL_Rect player::player_walk(SDL_Event event, map* _map, chest* _chest){
                             }  
                             break;
                         }
+                        case 3:{
+                            player::movement(1);
+                            break;
+                        } 
                     }
 
                 }
@@ -75,6 +83,10 @@ SDL_Rect player::player_walk(SDL_Event event, map* _map, chest* _chest){
                             }  
                             break;
                         }
+                        case 3:{
+                            player::movement(3);
+                            break;
+                        } 
                     }
                 }
                 else if(event.key.keysym.sym == SDLK_LEFT){
@@ -94,6 +106,10 @@ SDL_Rect player::player_walk(SDL_Event event, map* _map, chest* _chest){
                             }  
                             break;
                         }
+                        case 3:{
+                            player::movement(2);
+                            break;
+                        } 
                     }
     
                 }

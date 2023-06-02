@@ -1,6 +1,7 @@
 #ifndef SRC_VIEWS_SCREEN_H
 #define SRC_VIEWS_SCREEN_H
 
+#include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "picture.h"

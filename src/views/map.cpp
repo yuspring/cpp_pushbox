@@ -69,9 +69,25 @@ int map::get_mapitem(int x, int y){
     else if(_map[x][y] == 'C'){
         return 2;
     }
+    else if(_map[x][y] == 'E'){
+        return 3;
+    }
     return -1;
 }
 
+void map::map_render(SDL_Texture *tex1, SDL_Renderer *renderer, char _c){
+    for(int i = 1; i <= _X; i++){
+        for(int j = 1; j <= _Y; j++){
+            
+            SDL_Rect rec = {40 * j, 40 * i, 40, 40};
+            if(_map[i-1][j-1] == _c){
+                SDL_RenderCopy(renderer, tex1, nullptr, &rec);
+                //object.set_coord(0, i-1, j-1);
+            }
+        }
+    }
+}
+/*
 void map::map_render(SDL_Texture *tex1, SDL_Texture *tex2, SDL_Texture *tex3, SDL_Renderer *renderer){
     //map::map_show();
     for(int i = 1; i <= _X; i++){
@@ -97,4 +113,4 @@ void map::map_render(SDL_Texture *tex1, SDL_Texture *tex2, SDL_Texture *tex3, SD
         }
     }
 }
-
+*/

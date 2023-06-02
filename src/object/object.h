@@ -11,6 +11,9 @@ class object{
         void set_rect(int x , int y);
         int _X;
         int _Y;
+        int _x;
+        int _y;
+
 };
 
 #endif
