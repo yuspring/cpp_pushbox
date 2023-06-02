@@ -1,28 +1,33 @@
 #include "chest.h"
 
-void chest::move(int dire, map* _map, chest * chest, int _X, int _Y){
+void chest::move(int dire, map* _map){
     if(dire == 0){
-        chest->movement(0);
-        _map->map_edit(_X,_Y+1,'.');
-        _map->map_edit(_X, _Y, 'C');
+        this->movement(0);
+        _map->map_edit(this->_x+1,this->_y,'.');
+        _map->map_edit(this->_x, this->_y, 'C');
     }
     else if(dire == 1){
-        chest->movement(1);
-        _map->map_edit(_X,_Y+1,'.');
-        _map->map_edit(_X,_Y+2, 'C');
+        this->movement(1);
+        _map->map_edit(this->_x-1,this->_y,'.');
+        _map->map_edit(this->_x, this->_y, 'C');
     }
     else if(dire == 2){
-        chest->movement(2);
-        _map->map_edit(_X,_Y+1,'.');
-        _map->map_edit(_X-1,_Y+1, 'C');
+        this->movement(2);
+        _map->map_edit(this->_x,this->_y+1,'.');
+        _map->map_edit(this->_x, this->_y, 'C');
 
     }
     else if(dire == 3){
-        chest->movement(3);
-        _map->map_edit(_X,_Y+1,'.');
-        _map->map_edit(_X+1, _Y+1, 'C');
+        this->movement(3);
+        _map->map_edit(this->_x,this->_y-1,'.');
+        _map->map_edit(this->_x, this->_y, 'C');
 
     }
 
 
+}
+
+bool chest::is_pushed(int x, int y){
+    if(_x == x && _y == y) return true;
+    return false;
 }

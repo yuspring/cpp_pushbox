@@ -41,7 +41,7 @@ void map::map_load(std::string _path){
 
 void map::map_edit(int x, int y, char _c){
     std::cout << x << " " << y <<" " << _c << "\n";
-    this->_map[y][x] = _c;
+    this->_map[x][y] = _c;
 }
 
 int map::get_mapsize_X(){

@@ -17,21 +17,25 @@ void object::movement(int direction){
     switch(direction){
         case 0:{
             _Y -= 40;
+            _x -= 1;
             break;
         }
 
         case 1:{
             _Y += 40;
+            _x += 1;
             break;
         }
 
         case 2:{
             _X -= 40;
+            _y -= 1;
             break;
         }
 
         case 3:{
             _X += 40;
+            _y +=1;
             break;
         }
     }

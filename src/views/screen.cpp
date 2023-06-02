@@ -30,7 +30,7 @@ void app::init(){
     
     //std::cout << _coord_map.get_player_coord(first_map).x << " " << _coord_map.get_player_coord(first_map).y << '\n';
     _player.set_coord(_coord_map.get_player_coord(first_map).x, _coord_map.get_player_coord(first_map).y);
-    first_map.map_edit(_player._y, _player._x, '.');
+    first_map.map_edit(_player._x, _player._y, '.');
     //std::cout << _coord_map.get_player_coord(first_map).x << " " << _coord_map.get_player_coord(first_map).y << '\n';
     //set chest coord
     _chest = _coord_map.init_chest(first_map);
@@ -55,15 +55,23 @@ void app::run(){
 
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 255);
         SDL_RenderClear(renderer);
-        //first_map.map_render(_mp["wall"].tex(), _mp["gress"].tex(),_mp["chest"].tex(), renderer);
+        
+        
+
+        for(int i = 0; i < _chest.size(); i++){
+            if(_chest[i].is_pushed(_player._x, _player._y)){
+                _chest[i].move(_player._dire, &first_map);
+            }
+        }
         first_map.map_render(_mp["gress"].tex(), renderer, '.');
         first_map.map_render(_mp["wall"].tex(), renderer, '#');
         for(int i = 0; i < _dest.size(); i++){
             _dest[i].render(_dest[i]._rect,renderer, _mp["gray"].tex() );     
         }
+        
         first_map.map_render(_mp["chest"].tex(), renderer, 'C');
         for(int i = 0; i < _chest.size(); i++){
-            _player.render(_player.player_walk(event, &first_map, &_chest[i]),renderer, _mp["player"].tex() );
+            _player.render(_player.player_walk(event, &first_map),renderer, _mp["player"].tex() );
         }
         
         SDL_RenderPresent(renderer);

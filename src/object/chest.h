@@ -9,7 +9,8 @@
 class chest: public object{
     
     public:
-        void move(int dire, map* _map, chest * _chest, int _X, int _Y);
+        void move(int dire, map* _map);
+        bool is_pushed(int x, int y);
         
 
 };
