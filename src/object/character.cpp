@@ -12,56 +12,6 @@ int player::ifItem(map _map, int x, int y)
     return _map.get_mapitem(y, x);
 }
 
-void player::player_push(map _map, int x, int y, int dire, chest _chest){
-    switch(dire){
-        case 0:{
-            if(player::ifItem(_map, x, y-2) == 0){
-                break;
-            }
-            else{
-                //std::cout <<  _chest._X << " " << _chest._Y << '\n';
-                //std::cout <<  _chest._rect.x << " " << _chest._rect.y << '\n';
-                _chest.movement(dire);
-                //_chest.set_coord(_chest._X/40 ,_chest._Y/40);
-                //std::cout <<  _chest._X << " " << _chest._Y << '\n';
-                //std::cout <<  _chest._rect.x << " " << _chest._rect.y << '\n';
-                /*
-                for(int i = x-1; i <= x+1; i++){
-                    for(int j = y - 1; j <= y+1; j++){
-                        std::cout << _map.map_show(i,j);
-                    }
-                    std::cout << '\n';
-                }
-                */
-               //_map.map_show();
-               _map.map_edit(x, y-1, 'C');
-               _map.map_edit(x,y,'.');
-               //_map.map_show();
-                /*
-                for(int i = x-1; i <= x+1; i++){
-                    for(int j = y - 1; j <= y+1; j++){
-                        std::cout << _map.map_show(i,j);
-                    }
-                    std::cout << '\n';
-                }
-                */
-                player::movement(dire);
-            }
-        }
-        case 1:{
-
-        }
-        case 2:{
-
-        }
-        case 3:{
-
-        }
-
-    }
-    
-}
-
 SDL_Rect player::player_walk(SDL_Event event, map* _map, chest* _chest){
 
     SDL_Rect rec = { _X , _Y, 40 ,40};
@@ -73,17 +23,17 @@ SDL_Rect player::player_walk(SDL_Event event, map* _map, chest* _chest){
                         case 0:{
                             break;
                         }
-
                         case 1:{
                             player::movement(0);
                             break;
                         }
                         
                         case 2:{
-                            _chest->movement(0);
-                            player::movement(0);
-                            _map->map_edit(UP_X(_X),UP_Y(_Y)+1,'.');
-                            _map->map_edit(UP_X(_X), UP_Y(_Y), 'C');
+                            if(player::can_push(_map, UP_X(_X), UP_Y(_Y), 0) ){
+                                player::movement(0);
+                                _chest->move(0, _map, _chest,UP_X(_X), UP_Y(_Y) );
+                            }  
+                            break;
                         }
                         
                     }                 
@@ -99,10 +49,11 @@ SDL_Rect player::player_walk(SDL_Event event, map* _map, chest* _chest){
                             break;
                         }
                         case 2:{
-                            _chest->movement(1);
-                            player::movement(1);
-                            _map->map_edit(UP_X(_X),UP_Y(_Y)+1,'.');
-                            _map->map_edit(UP_X(_X), UP_Y(_Y)+2, 'C');
+                            if(player::can_push(_map, UP_X(_X), UP_Y(_Y), 1) ){
+                                player::movement(1);
+                                _chest->move(1, _map, _chest,UP_X(_X), UP_Y(_Y) );
+                            }  
+                            break;
                         }
                     }
 
@@ -118,10 +69,11 @@ SDL_Rect player::player_walk(SDL_Event event, map* _map, chest* _chest){
                             break;
                         }
                         case 2:{
-                            _chest->movement(3);
-                            player::movement(3);
-                            _map->map_edit(UP_X(_X),UP_Y(_Y)+1,'.');
-                            _map->map_edit(UP_X(_X)+1, UP_Y(_Y)+1, 'C');
+                            if(player::can_push(_map, UP_X(_X), UP_Y(_Y), 3) ){
+                                player::movement(3);
+                                _chest->move(3, _map, _chest,UP_X(_X), UP_Y(_Y) );
+                            }  
+                            break;
                         }
                     }
                 }
@@ -136,10 +88,11 @@ SDL_Rect player::player_walk(SDL_Event event, map* _map, chest* _chest){
                             break;
                         }
                         case 2:{
-                            _chest->movement(2);
-                            player::movement(2);
-                            _map->map_edit(UP_X(_X),UP_Y(_Y)+1,'.');
-                            _map->map_edit(UP_X(_X)-1, UP_Y(_Y)+1, 'C');
+                            if(player::can_push(_map, UP_X(_X), UP_Y(_Y), 2) ){
+                                player::movement(2);
+                                _chest->move(2, _map, _chest,UP_X(_X), UP_Y(_Y) );
+                            }  
+                            break;
                         }
                     }
     
@@ -150,4 +103,19 @@ SDL_Rect player::player_walk(SDL_Event event, map* _map, chest* _chest){
         return rec;
 }
 
+bool player::can_push(map *_map, int _X, int _Y, int dire){
+    if(dire == 0){
+        return( player::ifItem(*_map, _X, _Y-1) != 0 && player::ifItem(*_map, _X, _Y-1) != 2);
+    }
+    else if(dire == 1){
+        return( player::ifItem(*_map, _X, _Y+3) != 0 && player::ifItem(*_map, _X, _Y+3) != 2);
+    }
+    else if(dire == 2){
+        return( player::ifItem(*_map, _X-2, _Y+1) != 0 && player::ifItem(*_map, _X-2, _Y+1) != 2);
+    }
+    else if(dire == 3){
+        return( player::ifItem(*_map, _X+2, _Y+1) != 0 && player::ifItem(*_map, _X+2, _Y+1) != 2);
+    }
+    return 0;
+}
 

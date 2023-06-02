@@ -28,6 +28,8 @@ class app{
 
         void init();
         void run();
+        void set_coord();
+        void set_map();
         int _X , _Y;
 
 

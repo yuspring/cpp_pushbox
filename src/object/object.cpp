@@ -15,34 +15,22 @@ void object::set_coord(int x, int y){
 void object::movement(int direction){
     switch(direction){
         case 0:{
-            _Y -= 10;
-            _Y -= 10;
-            _Y -= 10;
-            _Y -= 10;
+            _Y -= 40;
             break;
         }
 
         case 1:{
-            _Y += 10;
-            _Y += 10;
-            _Y += 10;
-            _Y += 10;
+            _Y += 40;
             break;
         }
 
         case 2:{
-            _X -= 10;
-            _X -= 10;
-            _X -= 10;
-            _X -= 10;
+            _X -= 40;
             break;
         }
 
         case 3:{
-            _X += 10;
-            _X += 10;
-            _X += 10;
-            _X += 10;
+            _X += 40;
             break;
         }
     }

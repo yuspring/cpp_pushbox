@@ -48,6 +48,7 @@ char map::map_show(int x, int y){
     return this->_map[x][y];
 }
 
+
 void map::map_show(){
     for(int i = 1; i <= _X; i++){
         for(int j = 1; j <= _Y; j++){

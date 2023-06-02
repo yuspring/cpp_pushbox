@@ -10,11 +10,11 @@
 class picture{
     private:
         std::string name;
-        SDL_Texture *tex;
+        SDL_Texture *texture;
     public :
         picture() = default;
         picture(std::string _name, std::string _path, SDL_Renderer * render);
-        SDL_Texture * get_tex();
+        SDL_Texture * tex();
         
 };
 
