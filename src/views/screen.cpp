@@ -70,9 +70,9 @@ void app::run(){
         }
         
         first_map.map_render(_mp["chest"].tex(), renderer, 'C');
-        for(int i = 0; i < _chest.size(); i++){
-            _player.render(_player.player_walk(event, &first_map),renderer, _mp["player"].tex() );
-        }
+        
+        _player.render(_player.player_walk(event, &first_map),renderer, _mp["player"].tex() );
+        
         
         SDL_RenderPresent(renderer);
     }
