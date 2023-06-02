@@ -2,7 +2,10 @@
 
 std::map<std::string, picture> __mp;
 
-picture::picture(std::string _name, std::string _path, SDL_Renderer * render){
+
+
+picture::picture(std::string _name, std::string _path, SDL_Renderer *render)
+{
     this->name = _name;
     this->texture = IMG_LoadTexture(render, _path.c_str());
 }

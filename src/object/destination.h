@@ -8,6 +8,7 @@ class dest: public object{
     
     public :
     bool chest_up(map _map);
+    
 
 
 };

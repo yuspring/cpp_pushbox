@@ -3,12 +3,14 @@
 
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <vector>
 #include <SDL2/SDL_image.h>
 #include "picture.h"
 #include "map.h"
 #include "../object/character.h"
 #include "../object/chest.h"
 #include "../object/destination.h"
+#include "../util/coord.h"
 
 class app{
 
@@ -20,8 +22,9 @@ class app{
         std::map<std::string, picture> _mp;
         map first_map;
         player _player;
-        chest _chest;    
-        dest _dest;
+        coord_map _coord_map;
+        std::vector<chest> _chest;    
+        std::vector<dest> _dest;
 
     public:
         app();

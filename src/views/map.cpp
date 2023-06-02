@@ -20,19 +20,19 @@ void map::map_load(std::string _path){
             
             SDL_Rect rec = {40 * j, 40 * i, 40, 40};
             if(_map[i-1][j-1] == '#'){
-                object.set_coord(0, i-1, j-1);
+                //object.set_coord(0, i-1, j-1);
             }
             else if(_map[i-1][j-1] == '.'){
-                object.set_coord(1, i-1, j-1);
+                //object.set_coord(1, i-1, j-1);
             }
             else if(_map[i-1][j-1] == 'C'){
-                object.set_coord(2, i-1, j-1);
+                //object.set_coord(2, i-1, j-1);
             }
             else if(_map[i-1][j-1] == 'P'){
-                object.set_coord(3, i-1, j-1);
+                //object.set_coord(3, i-1, j-1);
             }
             else if(_map[i-1][j-1] == 'E'){
-                object.set_coord(4, i-1, j-1);
+                //object.set_coord(4, i-1, j-1);
             }
         }
     }
@@ -44,10 +44,14 @@ void map::map_edit(int x, int y, char _c){
     this->_map[y][x] = _c;
 }
 
-char map::map_show(int x, int y){
-    return this->_map[x][y];
+int map::get_mapsize_X(){
+    return this->_X;
 }
 
+int map::get_mapsize_Y()
+{
+    return this->_Y;
+}
 
 void map::map_show(){
     for(int i = 1; i <= _X; i++){
@@ -87,30 +91,3 @@ void map::map_render(SDL_Texture *tex1, SDL_Renderer *renderer, char _c){
         }
     }
 }
-/*
-void map::map_render(SDL_Texture *tex1, SDL_Texture *tex2, SDL_Texture *tex3, SDL_Renderer *renderer){
-    //map::map_show();
-    for(int i = 1; i <= _X; i++){
-        for(int j = 1; j <= _Y; j++){
-            
-            SDL_Rect rec = {40 * j, 40 * i, 40, 40};
-            if(_map[i-1][j-1] == '#'){
-                SDL_RenderCopy(renderer, tex1, nullptr, &rec);
-                //object.set_coord(0, i-1, j-1);
-            }
-            else if(_map[i-1][j-1] == '.'){
-                SDL_RenderCopy(renderer, tex2, nullptr, &rec);
-                //object.set_coord(0, i-1, j-1);
-            }
-            else if(_map[i-1][j-1] == 'C'){
-                SDL_RenderCopy(renderer, tex3, nullptr, &rec);
-                //object.set_coord(0, i-1, j-1);
-            }
-            else if(_map[i-1][j-1] == 'P'){
-                SDL_RenderCopy(renderer, tex2, nullptr, &rec);
-                //object.set_coord(0, i-1, j-1);
-            }
-        }
-    }
-}
-*/

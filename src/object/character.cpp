@@ -4,6 +4,8 @@
 player::player(){
     _X = 80;
     _Y = 80;
+    _x = 1;
+    _y = 1;
 }
 
 int player::ifItem(map _map, int x, int y)
