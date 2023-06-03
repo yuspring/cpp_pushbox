@@ -1,6 +1,7 @@
 #ifndef SRC_OBJECT_OBJECT
 #define SRC_OBJECT_OBJECT
 #include <SDL2/SDL.h>
+
 class object{
     public :
         void render(SDL_Rect rec, SDL_Renderer * renderer, SDL_Texture * tex );

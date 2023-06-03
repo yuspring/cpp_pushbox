@@ -5,7 +5,6 @@
 #include "../views/map.h"
 #include "chest.h"
 #include "object.h"
-#include "../util/const.h"
 
 
 class player : public object{

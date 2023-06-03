@@ -11,6 +11,7 @@
 #include "../object/chest.h"
 #include "../object/destination.h"
 #include "../util/coord.h"
+#include "../util/score.h"
 
 class app{
 
@@ -25,6 +26,7 @@ class app{
         coord_map _coord_map;
         std::vector<chest> _chest;    
         std::vector<dest> _dest;
+        score _s;
 
     public:
         app();
@@ -32,8 +34,6 @@ class app{
 
         void init();
         void run();
-        void set_coord();
-        void set_map();
         int _X , _Y;
 
 

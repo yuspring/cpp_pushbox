@@ -7,7 +7,10 @@
 class dest: public object{
     
     public :
+    dest();
     bool chest_up(map _map);
+    bool up_chest;
+    void chest(bool _c);
     
 
 

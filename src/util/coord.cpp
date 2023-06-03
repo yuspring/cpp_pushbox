@@ -1,29 +1,6 @@
 #include "coord.h"
 
 
-
-coord coord_map::get_char_coord()
-{
-    return this->_arr[3];
-}
-
-coord coord_map::get_chest_coord()
-{
-    return this->_arr[2];
-}
-
-coord coord_map::get_dest_coord()
-{
-    return this->_arr[4];
-}
-void coord_map::set_coord(int k, int x, int y){
-    this->_arr[k] = {x, y};
-}
-
-char map::map_show(int x, int y){
-    return this->_map[x][y];
-}
-
 std::vector<dest> coord_map::init_dest(map _map){
     std::vector<dest> _dest;
 

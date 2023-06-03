@@ -20,11 +20,6 @@ class coord_map{
         std::vector<chest> init_chest(map _map);
         coord get_player_coord(map _map);
 
-        coord get_char_coord();
-        coord get_chest_coord();
-        coord get_dest_coord();
-        void set_coord(int k, int x , int y);
-        coord _arr[10];
 };
 
 #endif

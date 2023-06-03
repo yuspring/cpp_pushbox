@@ -27,7 +27,7 @@ else
 	SDL2_OPTIONS = -lSDL2 -lSDL2_image -lSDL2_ttf
 endif
 
-_OFILE = screen.o picture.o map.o character.o coord.o object.o destination.o chest.o
+_OFILE = screen.o picture.o map.o character.o coord.o object.o destination.o chest.o score.o 
 _C_OPTION = -std=c++11
 
 all : game
@@ -61,4 +61,7 @@ destination.o : ./src/object/destination.cpp
 	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) $(_C_OPTION)
 
 chest.o : ./src/object/chest.cpp
+	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) $(_C_OPTION)
+
+score.o : ./src/util/score.cpp
 	g++ $^ -c -o $@ $(SDL2_LIB) $(SDL2_OPTIONS) $(_C_OPTION)
