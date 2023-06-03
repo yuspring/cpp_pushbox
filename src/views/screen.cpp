@@ -25,7 +25,7 @@ void app::init(){
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     
     //app::set_map();
-    first_map.map_load("maps/map1.txt");
+    first_map.map_load("maps/map.txt");
     // P to .
     
     //std::cout << _coord_map.get_player_coord(first_map).x << " " << _coord_map.get_player_coord(first_map).y << '\n';
