@@ -8,7 +8,6 @@ app::app(){
 }
 
 app::~app(){
-    _mp.clear();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -26,18 +25,40 @@ void app::init(){
     
 
     first_map.map_load("maps/map4.txt");
-    
-    _player.set_coord(_coord_map.get_player_coord(first_map).x, _coord_map.get_player_coord(first_map).y);
-    first_map.map_edit(_player._x, _player._y, '.');
-
-
-    _chest = _coord_map.init_chest(first_map);
-    _dest = _coord_map.init_dest(first_map);
-
-    _mp = init_picture(renderer);
+    map_mp = init_map();
+    app::set_map_info(&map_mp["map2"]);
+    pic_mp = init_picture(renderer);
 
 }
 
+void app::set_map_info(map *_map){
+    _player.set_coord(_coord_map.get_player_coord(*_map).x, _coord_map.get_player_coord(*_map).y);
+    _map->map_edit(_player._x, _player._y, '.');
+
+
+    _chest = _coord_map.init_chest(*_map);
+    _dest = _coord_map.init_dest(*_map);
+}
+void app::set_map_render(map* _map){
+
+    for(int i = 0; i < _chest.size(); i++){
+            if(_chest[i].is_pushed(_player._x, _player._y)){
+                _chest[i].move(_player._dire, _map);
+            }
+        }
+
+    _map->map_render(pic_mp["gress"].tex(), renderer, '.');
+    _map->map_render(pic_mp["wall"].tex(), renderer, '#');
+    for(int i = 0; i < _dest.size(); i++){
+        _dest[i].render(_dest[i]._rect,renderer, pic_mp["gray"].tex() );     
+    }
+    
+    _map->map_render(pic_mp["chest"].tex(), renderer, 'C');
+    
+    _player.render(_player.player_walk(event, _map),renderer, pic_mp["player"].tex() );
+    
+    _s.detect_dest(*_map,_dest);
+}
 
 void app::run(){
 
@@ -53,24 +74,8 @@ void app::run(){
         SDL_RenderClear(renderer);
         
         
-
-        for(int i = 0; i < _chest.size(); i++){
-            if(_chest[i].is_pushed(_player._x, _player._y)){
-                _chest[i].move(_player._dire, &first_map);
-            }
-        }
-
-        first_map.map_render(_mp["gress"].tex(), renderer, '.');
-        first_map.map_render(_mp["wall"].tex(), renderer, '#');
-        for(int i = 0; i < _dest.size(); i++){
-            _dest[i].render(_dest[i]._rect,renderer, _mp["gray"].tex() );     
-        }
+        app::set_map_render(&map_mp["map2"]);
         
-        first_map.map_render(_mp["chest"].tex(), renderer, 'C');
-        
-        _player.render(_player.player_walk(event, &first_map),renderer, _mp["player"].tex() );
-        
-        _s.detect_dest(first_map,_dest);
         
         SDL_RenderPresent(renderer);
     }
