@@ -22,12 +22,12 @@ class app{
         SDL_Renderer *renderer;   
         std::map<std::string, picture> pic_mp;
         std::map<std::string, map> map_mp;
-        map first_map;
         player _player;
         coord_map _coord_map;
         std::vector<chest> _chest;    
         std::vector<dest> _dest;
         score _s;
+        std::string _map_name;
 
     public:
         app();

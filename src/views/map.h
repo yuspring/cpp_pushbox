@@ -35,7 +35,7 @@ class map{
 
 };
 
-std::map<std::string, map> init_map(); 
+std::map<std::string, map> init_map();
 
 
 #endif

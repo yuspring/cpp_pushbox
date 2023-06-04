@@ -84,3 +84,8 @@ std::map<std::string, map> init_map(){
     _mp["map5"] = _map5;
     return _mp;
 }
+
+std::map<std::string, map> init_map(std::string _path){
+    
+    return std::map<std::string, map>();
+}

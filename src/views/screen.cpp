@@ -5,6 +5,7 @@ app::app(){
     quit = false;
     _X = 80;
     _Y = 80;
+    _map_name = "map1";
 }
 
 app::~app(){
@@ -24,9 +25,8 @@ void app::init(){
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     
 
-    first_map.map_load("maps/map4.txt");
     map_mp = init_map();
-    app::set_map_info(&map_mp["map2"]);
+    app::set_map_info(&map_mp[this->_map_name]);
     pic_mp = init_picture(renderer);
 
 }
@@ -70,13 +70,21 @@ void app::run(){
             break;
         }
 
+        if(event.type == SDL_KEYDOWN){
+            if (event.key.keysym.sym == SDLK_1){
+                map_mp = init_map();
+                this->_map_name = "map1";
+                app::set_map_info(&map_mp[this->_map_name]);
+            }
+            else if (event.key.keysym.sym == SDLK_2){
+                map_mp = init_map();
+                this->_map_name = "map2";
+                app::set_map_info(&map_mp[this->_map_name]);
+            }
+        }
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 255);
         SDL_RenderClear(renderer);
-        
-        
-        app::set_map_render(&map_mp["map2"]);
-        
-        
+        app::set_map_render(&map_mp[this->_map_name]);
         SDL_RenderPresent(renderer);
     }
 
