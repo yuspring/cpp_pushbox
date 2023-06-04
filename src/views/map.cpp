@@ -6,12 +6,12 @@ void map::map_load(std::string _path){
     int cnt = 0;
     int x, y;
     file >> x >> y;
-    std::cout << x << " " << y << "\n";
+    //std::cout << x << " " << y << "\n";
     this->_X = x;
     this->_Y = y;
     while (!file.eof()){
         file >> _map[cnt];
-        std::cout << _map[cnt] << '\n';
+        //std::cout << _map[cnt] << '\n';
         cnt++;
     }
 
@@ -83,9 +83,4 @@ std::map<std::string, map> init_map(){
     _mp["map4"] = _map4;
     _mp["map5"] = _map5;
     return _mp;
-}
-
-std::map<std::string, map> init_map(std::string _path){
-    
-    return std::map<std::string, map>();
 }

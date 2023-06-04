@@ -2,8 +2,9 @@
 #define SRC_VIEWS_SCREEN_H
 
 #include <iostream>
-#include <SDL2/SDL.h>
 #include <vector>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 #include "picture.h"
 #include "map.h"
@@ -28,6 +29,11 @@ class app{
         std::vector<dest> _dest;
         score _s;
         std::string _map_name;
+        TTF_Font* ttf;
+        SDL_Surface* surfaceText;
+        SDL_Texture* ttf_welcome;
+        SDL_Texture* ttf_break;
+        bool game_run;
 
     public:
         app();

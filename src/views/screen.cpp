@@ -6,9 +6,11 @@ app::app(){
     _X = 80;
     _Y = 80;
     _map_name = "map1";
+    game_run = false;
 }
 
 app::~app(){
+    TTF_CloseFont(ttf);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -17,16 +19,21 @@ app::~app(){
 void app::init(){
 
     SDL_Init(SDL_INIT_VIDEO);
+    TTF_Init();
     window = SDL_CreateWindow("My SDL Empty window", 
                                 SDL_WINDOWPOS_UNDEFINED, 
                                 SDL_WINDOWPOS_UNDEFINED, 
-                                900, 900, SDL_WINDOW_SHOWN);
+                                500, 500, SDL_WINDOW_SHOWN);
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     
-
-    map_mp = init_map();
-    app::set_map_info(&map_mp[this->_map_name]);
+    ttf = TTF_OpenFont("fonts/ka1.ttf",10);
+    surfaceText = TTF_RenderText_Solid(ttf,"PLEASE PAUSE SPACE",{0,0,0});
+    ttf_welcome = SDL_CreateTextureFromSurface(renderer,surfaceText);
+    surfaceText = TTF_RenderText_Solid(ttf,"Congratulations",{0,0,0});
+    ttf_break = SDL_CreateTextureFromSurface(renderer,surfaceText);
+    //map_mp = init_map();
+    //app::set_map_info(&map_mp[this->_map_name]);
     pic_mp = init_picture(renderer);
 
 }
@@ -75,16 +82,58 @@ void app::run(){
                 map_mp = init_map();
                 this->_map_name = "map1";
                 app::set_map_info(&map_mp[this->_map_name]);
+                _s._score = 0;
             }
             else if (event.key.keysym.sym == SDLK_2){
                 map_mp = init_map();
                 this->_map_name = "map2";
                 app::set_map_info(&map_mp[this->_map_name]);
+                _s._score = 0;
+            }
+            else if (event.key.keysym.sym == SDLK_3){
+                map_mp = init_map();
+                this->_map_name = "map3";
+                app::set_map_info(&map_mp[this->_map_name]);
+                _s._score = 0;
+            }
+            else if (event.key.keysym.sym == SDLK_4){
+                map_mp = init_map();
+                this->_map_name = "map4";
+                app::set_map_info(&map_mp[this->_map_name]);
+                _s._score = 0;
+            }
+            else if (event.key.keysym.sym == SDLK_5){
+                map_mp = init_map();
+                this->_map_name = "map5";
+                app::set_map_info(&map_mp[this->_map_name]);
+                _s._score = 0;
+            }
+            else if(event.key.keysym.sym == SDLK_SPACE){
+                if(!game_run){
+                    map_mp = init_map();
+                    this->_map_name = "map1";
+                    app::set_map_info(&map_mp[this->_map_name]);
+                    game_run = true;
+                    _s._score = 0;
+                }
+                
             }
         }
+
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 255);
         SDL_RenderClear(renderer);
-        app::set_map_render(&map_mp[this->_map_name]);
+        if(game_run){
+            app::set_map_render(&map_mp[this->_map_name]);
+            if(_s._score == _dest.size()){
+            SDL_Rect ttf_ract = {50, 350 ,400 ,70};
+            SDL_RenderCopy(renderer,ttf_break ,NULL,&ttf_ract);
+        }
+        }
+        else{
+            SDL_Rect ttf_ract = {50, 150 ,400 ,70};
+            SDL_RenderCopy(renderer,ttf_welcome,NULL,&ttf_ract);
+        }
+        
         SDL_RenderPresent(renderer);
     }
 
