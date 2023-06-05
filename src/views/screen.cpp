@@ -20,18 +20,20 @@ void app::init(){
 
     SDL_Init(SDL_INIT_VIDEO);
     TTF_Init();
-    window = SDL_CreateWindow("My SDL Empty window", 
+    window = SDL_CreateWindow("C++ pushbox", 
                                 SDL_WINDOWPOS_UNDEFINED, 
                                 SDL_WINDOWPOS_UNDEFINED, 
-                                500, 500, SDL_WINDOW_SHOWN);
+                                500, 600, SDL_WINDOW_SHOWN);
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     
     ttf = TTF_OpenFont("fonts/ka1.ttf",10);
-    surfaceText = TTF_RenderText_Solid(ttf,"PLEASE PAUSE SPACE",{0,0,0});
+    surfaceText = TTF_RenderText_Solid(ttf,"PLEASE PRESS SPACE",{0,0,0});
     ttf_welcome = SDL_CreateTextureFromSurface(renderer,surfaceText);
     surfaceText = TTF_RenderText_Solid(ttf,"Congratulations",{0,0,0});
     ttf_break = SDL_CreateTextureFromSurface(renderer,surfaceText);
+    surfaceText = TTF_RenderText_Solid(ttf,"press \"1\" \"2\" \"3\" \"4\" \"5\" to switch map",{0,0,0});
+    ttf_switch = SDL_CreateTextureFromSurface(renderer,surfaceText);
     //map_mp = init_map();
     //app::set_map_info(&map_mp[this->_map_name]);
     pic_mp = init_picture(renderer);
@@ -124,13 +126,15 @@ void app::run(){
         SDL_RenderClear(renderer);
         if(game_run){
             app::set_map_render(&map_mp[this->_map_name]);
+            SDL_Rect ttf_ract_switch = {30, 350 ,450 ,40};
+            SDL_RenderCopy(renderer,ttf_switch ,NULL,&ttf_ract_switch);
             if(_s._score == _dest.size()){
-            SDL_Rect ttf_ract = {50, 350 ,400 ,70};
+            SDL_Rect ttf_ract = {50, 400 ,400 ,50};
             SDL_RenderCopy(renderer,ttf_break ,NULL,&ttf_ract);
-        }
+            }
         }
         else{
-            SDL_Rect ttf_ract = {50, 150 ,400 ,70};
+            SDL_Rect ttf_ract = {50, 150 ,400 ,40};
             SDL_RenderCopy(renderer,ttf_welcome,NULL,&ttf_ract);
         }
         

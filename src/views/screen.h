@@ -32,6 +32,7 @@ class app{
         TTF_Font* ttf;
         SDL_Surface* surfaceText;
         SDL_Texture* ttf_welcome;
+        SDL_Texture* ttf_switch;
         SDL_Texture* ttf_break;
         bool game_run;
 
