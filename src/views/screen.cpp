@@ -32,7 +32,7 @@ void app::init(){
     ttf_welcome = SDL_CreateTextureFromSurface(renderer,surfaceText);
     surfaceText = TTF_RenderText_Solid(ttf,"Congratulations",{0,0,0});
     ttf_break = SDL_CreateTextureFromSurface(renderer,surfaceText);
-    surfaceText = TTF_RenderText_Solid(ttf,"press \"1\" \"2\" \"3\" \"4\" \"5\" to switch map",{0,0,0});
+    surfaceText = TTF_RenderText_Solid(ttf,"press \"1\" \"2\" \"3\" \"4\" \"5\" \"6\" \"7\" \"8\"to switch map",{0,0,0});
     ttf_switch = SDL_CreateTextureFromSurface(renderer,surfaceText);
     //map_mp = init_map();
     //app::set_map_info(&map_mp[this->_map_name]);
@@ -107,6 +107,24 @@ void app::run(){
             else if (event.key.keysym.sym == SDLK_5){
                 map_mp = init_map();
                 this->_map_name = "map5";
+                app::set_map_info(&map_mp[this->_map_name]);
+                _s._score = 0;
+            }
+            else if (event.key.keysym.sym == SDLK_6){
+                map_mp = init_map();
+                this->_map_name = "map6";
+                app::set_map_info(&map_mp[this->_map_name]);
+                _s._score = 0;
+            }
+            else if (event.key.keysym.sym == SDLK_7){
+                map_mp = init_map();
+                this->_map_name = "map7";
+                app::set_map_info(&map_mp[this->_map_name]);
+                _s._score = 0;
+            }
+            else if (event.key.keysym.sym == SDLK_8){
+                map_mp = init_map();
+                this->_map_name = "map8";
                 app::set_map_info(&map_mp[this->_map_name]);
                 _s._score = 0;
             }

@@ -71,16 +71,22 @@ void map::map_render(SDL_Texture *tex1, SDL_Renderer *renderer, char _c){
 
 std::map<std::string, map> init_map(){
     std::map<std::string, map> _mp;
-    map _map1, _map2, _map3 , _map4 , _map5;
+    map _map1, _map2, _map3 , _map4 , _map5, _map6, _map7, _map8;
     _map1.map_load("maps/map.txt");
     _map2.map_load("maps/map1.txt");
     _map3.map_load("maps/map2.txt");
     _map4.map_load("maps/map3.txt");
     _map5.map_load("maps/map4.txt");
+    _map6.map_load("maps/map5.txt");
+    _map7.map_load("maps/map6.txt");
+    _map8.map_load("maps/map7.txt");
     _mp["map1"] = _map1;
     _mp["map2"] = _map2;
     _mp["map3"] = _map3;
     _mp["map4"] = _map4;
     _mp["map5"] = _map5;
+    _mp["map6"] = _map6;
+    _mp["map7"] = _map7;
+    _mp["map8"] = _map8;
     return _mp;
 }
