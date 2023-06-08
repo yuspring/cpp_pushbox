@@ -69,11 +69,6 @@ void app::run(){
             quit = true;
             break;
         }
-        if(event.type == SDL_KEYDOWN){
-            if(event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_DOWN || event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_LEFT){
-                show_switch = false;
-            }
-        }
         
         if(event.type == SDL_KEYDOWN){
             if (event.key.keysym.sym == SDLK_1){
@@ -94,10 +89,11 @@ void app::run(){
             else if(event.key.keysym.sym == SDLK_SPACE){
                 if(!game_run){
                     switch_map("map1");
-                    game_run = true;
-                    
+                    game_run = true;   
                 }
-                
+            }
+            else if(event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_DOWN || event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_LEFT){
+                show_switch = false;
             }
         }
 
