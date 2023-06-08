@@ -106,13 +106,15 @@ void app::run(){
                 SDL_RenderCopy(renderer,ttf_switch ,NULL,&ttf_ract_switch);
             }
             if(_s._score == _dest.size()){
-            SDL_Rect ttf_ract = {50, 400 ,400 ,50};
-            SDL_RenderCopy(renderer,ttf_break ,NULL,&ttf_ract);
+                SDL_Rect ttf_ract = {50, 400 ,400 ,50};
+                SDL_RenderCopy(renderer,ttf_break ,NULL,&ttf_ract);
             }
         }
         else{
-            SDL_Rect ttf_ract = {50, 150 ,400 ,40};
+            SDL_Rect ttf_ract = {50, 350 ,400 ,40};
+            SDL_Rect ttf_ract1 = {100, 150 ,300 ,40};
             SDL_RenderCopy(renderer,ttf_welcome,NULL,&ttf_ract);
+            SDL_RenderCopy(renderer,ttf_welcome1 ,NULL,&ttf_ract1);
         }
         
         SDL_RenderPresent(renderer);
@@ -130,6 +132,8 @@ void app::switch_map(std::string _str){
 
 void app::ttf_init(){
     ttf = TTF_OpenFont("fonts/ka1.ttf",10);
+    surfaceText = TTF_RenderText_Solid(ttf,"PUSH BOX",{0,0,0});
+    ttf_welcome1 = SDL_CreateTextureFromSurface(renderer,surfaceText);
     surfaceText = TTF_RenderText_Solid(ttf,"PLEASE PRESS SPACE",{0,0,0});
     ttf_welcome = SDL_CreateTextureFromSurface(renderer,surfaceText);
     surfaceText = TTF_RenderText_Solid(ttf,"Congratulations",{0,0,0});
