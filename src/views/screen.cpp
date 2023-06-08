@@ -7,6 +7,7 @@ app::app(){
     _Y = 80;
     _map_name = "map1";
     game_run = false;
+    show_switch = true;
 }
 
 app::~app(){
@@ -27,15 +28,7 @@ void app::init(){
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     
-    ttf = TTF_OpenFont("fonts/ka1.ttf",10);
-    surfaceText = TTF_RenderText_Solid(ttf,"PLEASE PRESS SPACE",{0,0,0});
-    ttf_welcome = SDL_CreateTextureFromSurface(renderer,surfaceText);
-    surfaceText = TTF_RenderText_Solid(ttf,"Congratulations",{0,0,0});
-    ttf_break = SDL_CreateTextureFromSurface(renderer,surfaceText);
-    surfaceText = TTF_RenderText_Solid(ttf,"press \"1\" \"2\" \"3\" \"4\" \"5\" \"6\" \"7\" \"8\"to switch map",{0,0,0});
-    ttf_switch = SDL_CreateTextureFromSurface(renderer,surfaceText);
-    //map_mp = init_map();
-    //app::set_map_info(&map_mp[this->_map_name]);
+    app::ttf_init();
     pic_mp = init_picture(renderer);
 
 }
@@ -43,8 +36,6 @@ void app::init(){
 void app::set_map_info(map *_map){
     _player.set_coord(_coord_map.get_player_coord(*_map).x, _coord_map.get_player_coord(*_map).y);
     _map->map_edit(_player._x, _player._y, '.');
-
-
     _chest = _coord_map.init_chest(*_map);
     _dest = _coord_map.init_dest(*_map);
 }
@@ -78,63 +69,33 @@ void app::run(){
             quit = true;
             break;
         }
-
+        if(event.type == SDL_KEYDOWN){
+            if(event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_DOWN || event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_LEFT){
+                show_switch = false;
+            }
+        }
+        
         if(event.type == SDL_KEYDOWN){
             if (event.key.keysym.sym == SDLK_1){
-                map_mp = init_map();
-                this->_map_name = "map1";
-                app::set_map_info(&map_mp[this->_map_name]);
-                _s._score = 0;
+                switch_map("map1");
             }
             else if (event.key.keysym.sym == SDLK_2){
-                map_mp = init_map();
-                this->_map_name = "map2";
-                app::set_map_info(&map_mp[this->_map_name]);
-                _s._score = 0;
+                switch_map("map2");
             }
             else if (event.key.keysym.sym == SDLK_3){
-                map_mp = init_map();
-                this->_map_name = "map3";
-                app::set_map_info(&map_mp[this->_map_name]);
-                _s._score = 0;
+                switch_map("map3");
             }
             else if (event.key.keysym.sym == SDLK_4){
-                map_mp = init_map();
-                this->_map_name = "map4";
-                app::set_map_info(&map_mp[this->_map_name]);
-                _s._score = 0;
+                switch_map("map4");
             }
             else if (event.key.keysym.sym == SDLK_5){
-                map_mp = init_map();
-                this->_map_name = "map5";
-                app::set_map_info(&map_mp[this->_map_name]);
-                _s._score = 0;
-            }
-            else if (event.key.keysym.sym == SDLK_6){
-                map_mp = init_map();
-                this->_map_name = "map6";
-                app::set_map_info(&map_mp[this->_map_name]);
-                _s._score = 0;
-            }
-            else if (event.key.keysym.sym == SDLK_7){
-                map_mp = init_map();
-                this->_map_name = "map7";
-                app::set_map_info(&map_mp[this->_map_name]);
-                _s._score = 0;
-            }
-            else if (event.key.keysym.sym == SDLK_8){
-                map_mp = init_map();
-                this->_map_name = "map8";
-                app::set_map_info(&map_mp[this->_map_name]);
-                _s._score = 0;
+                switch_map("map5");
             }
             else if(event.key.keysym.sym == SDLK_SPACE){
                 if(!game_run){
-                    map_mp = init_map();
-                    this->_map_name = "map1";
-                    app::set_map_info(&map_mp[this->_map_name]);
+                    switch_map("map1");
                     game_run = true;
-                    _s._score = 0;
+                    
                 }
                 
             }
@@ -145,7 +106,9 @@ void app::run(){
         if(game_run){
             app::set_map_render(&map_mp[this->_map_name]);
             SDL_Rect ttf_ract_switch = {30, 350 ,450 ,40};
-            SDL_RenderCopy(renderer,ttf_switch ,NULL,&ttf_ract_switch);
+            if(show_switch){
+                SDL_RenderCopy(renderer,ttf_switch ,NULL,&ttf_ract_switch);
+            }
             if(_s._score == _dest.size()){
             SDL_Rect ttf_ract = {50, 400 ,400 ,50};
             SDL_RenderCopy(renderer,ttf_break ,NULL,&ttf_ract);
@@ -161,3 +124,20 @@ void app::run(){
 
 }
 
+void app::switch_map(std::string _str){
+    map_mp = init_map();
+    this->_map_name = _str;
+    app::set_map_info(&map_mp[this->_map_name]);
+    _s._score = 0;
+    show_switch = true;
+}
+
+void app::ttf_init(){
+    ttf = TTF_OpenFont("fonts/ka1.ttf",10);
+    surfaceText = TTF_RenderText_Solid(ttf,"PLEASE PRESS SPACE",{0,0,0});
+    ttf_welcome = SDL_CreateTextureFromSurface(renderer,surfaceText);
+    surfaceText = TTF_RenderText_Solid(ttf,"Congratulations",{0,0,0});
+    ttf_break = SDL_CreateTextureFromSurface(renderer,surfaceText);
+    surfaceText = TTF_RenderText_Solid(ttf,"press \"1\"to \"5\" to switch map",{0,0,0});
+    ttf_switch = SDL_CreateTextureFromSurface(renderer,surfaceText);
+}

@@ -35,6 +35,7 @@ class app{
         SDL_Texture* ttf_switch;
         SDL_Texture* ttf_break;
         bool game_run;
+        bool show_switch;
 
     public:
         app();
@@ -44,7 +45,10 @@ class app{
         void set_map_info(map *_map);
         void set_map_render(map *_map);
         void run();
+        void switch_map(std::string _str);
+        void ttf_init();
         int _X , _Y;
+        
 
 
 
