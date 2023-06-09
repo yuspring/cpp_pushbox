@@ -1,3 +1,9 @@
+# 遊戲架構
+遊戲使用SDL的第三方函式庫來製作
+
+# 遊戲內容
+我推的箱子
+
 # 怎麼執行遊戲
 
 ## windows
@@ -21,3 +27,4 @@ brew install sdl2_ttf
 make
 ./game
 ```
+`
