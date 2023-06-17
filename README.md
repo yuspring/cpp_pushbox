@@ -13,6 +13,8 @@
 make
 ./game
 ```
+### 注意
+有些編譯器的make指令是mingw32-make，可能要修改一下
 
 ## macOS
 首先，電腦要先裝homebrew  
