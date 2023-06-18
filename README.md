@@ -1,8 +1,14 @@
+# 連結
+[github](https://github.com/yuspring/cpp_pushbox)
+
 # 遊戲架構
 遊戲使用SDL的第三方函式庫來製作
 
 # 遊戲內容
 我推的箱子
+
+### 遊戲畫面
+![](https://upload.cc/i1/2023/06/18/8uVYWB.png)
 
 # 怎麼執行遊戲
 
@@ -29,4 +35,3 @@ brew install sdl2_ttf
 make
 ./game
 ```
-`
