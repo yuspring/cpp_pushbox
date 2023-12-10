@@ -1,0 +1,6 @@
+version = 1
+
+exclude_patterns = ["third_party/**"]
+
+[[analyzers]]
+name = "cxx"
